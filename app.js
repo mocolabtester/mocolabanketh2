@@ -6,7 +6,7 @@
  */
 
 // --- DEFAULTS & CONFIGURATION ---
-const DEFAULT_SURVEY_URL = "https://script.google.com/macros/s/AKfycbzHyox2kAT0QC3CXPru-Nc7xUbZsqMaYpVF3yUt8qVJ7eSU9zX8eK5Ktb_BaCLFIUuAJg/exec";
+const DEFAULT_SURVEY_URL = "https://script.google.com/macros/s/AKfycbye8qXwlX3a6MQjwZL2WO4l9d4NpkFRwgf6z8GoyXxrhL_eArX43Ee8985TpnW6NO0vZw/exec";
 const DEFAULT_CREDITS_URL = "https://script.google.com/macros/s/AKfycbyKhZuhcK4cY8s_t5tWd_uJ0efTEfISj47nCMjDdLyRYi6JSeEFoVvRc2srK6sf1xhlIA/exec";
 
 // --- ÖLÇEK MADDELERİ VE YAPISI ---
