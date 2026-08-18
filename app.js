@@ -407,14 +407,15 @@ function initAppNavigation() {
         sessionData.d2_initial_choice = parseInt(choiceVal);
         sessionData.d2_initial_rating = parseInt(document.querySelector("input[name='d2-init-rating']:checked").value);
         
-        // CROSSOVER ATAMA MANTIĞI:
+        // DESTEKLEYİCİ İNSAN (Katılımcının İkilem 2'deki kararına kesinlikle DESTEKLEYİCİ model atanır):
+        // 1: Evet (İsrafı önle -> Destekleyen: unfrnsh), 2: Hayır (Eşitliği koru -> Destekleyen: wstflh)
         const chatLink2 = document.getElementById("btn-d2-chat-link");
-        if (sessionData.d1_assigned_model === "unfrnsh") {
-            sessionData.d2_assigned_model = "wstflh";
-            if (chatLink2) chatLink2.href = "https://mocolabtester.github.io/wstflh/";
-        } else {
+        if (sessionData.d2_initial_choice === 1 || choiceVal === "1" || choiceVal === "Evet") {
             sessionData.d2_assigned_model = "unfrnsh";
             if (chatLink2) chatLink2.href = "https://mocolabtester.github.io/unfrnsh/";
+        } else {
+            sessionData.d2_assigned_model = "wstflh";
+            if (chatLink2) chatLink2.href = "https://mocolabtester.github.io/wstflh/";
         }
 
         showStep("d2-ai");
