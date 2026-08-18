@@ -362,13 +362,17 @@ body {
 
 .btn-radio {
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .btn-radio input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
+    position: absolute !important;
+    opacity: 0 !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    pointer-events: none !important;
 }
 
 .radio-card {
@@ -382,6 +386,7 @@ body {
     border-radius: var(--border-radius-md);
     transition: var(--transition-fast);
     text-align: center;
+    outline: none !important;
 }
 
 .radio-label {
@@ -392,17 +397,22 @@ body {
 
 .btn-radio:hover .radio-card {
     border-color: var(--primary-color);
-    background-color: rgba(99, 102, 241, 0.02);
+    background-color: rgba(99, 102, 241, 0.08);
 }
 
 .btn-radio input:checked ~ .radio-card {
-    border-color: var(--primary-color);
-    background-color: var(--primary-glow);
-    box-shadow: 0 0 16px var(--primary-glow);
+    border-color: #6366f1 !important;
+    background-color: #4f46e5 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 16px rgba(99, 102, 241, 0.4) !important;
+}
+
+.btn-radio input:checked ~ .radio-card .radio-label {
+    color: #ffffff !important;
 }
 
 .btn-radio input:checked ~ .radio-card i {
-    color: var(--primary-color);
+    color: #ffffff !important;
 }
 
 /* Likert Grid for Appropriateness (1-7) */
@@ -458,13 +468,17 @@ body {
     flex: 1;
     position: relative;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .likert-item input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
+    position: absolute !important;
+    opacity: 0 !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    pointer-events: none !important;
 }
 
 .likert-item span {
@@ -479,6 +493,7 @@ body {
     font-size: 0.95rem;
     color: var(--text-color);
     transition: var(--transition-fast);
+    outline: none !important;
 }
 
 .likert-item:hover span {
@@ -487,10 +502,10 @@ body {
 }
 
 .likert-item input:checked ~ span {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 0 12px var(--primary-glow);
+    background-color: #4f46e5 !important;
+    border-color: #6366f1 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.4) !important;
 }
 
 /* Dividers */
@@ -822,16 +837,18 @@ body {
     position: relative;
     flex: 1;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+    -webkit-tap-highlight-color: transparent !important;
+    user-select: none !important;
+    outline: none !important;
 }
 
 .scale-option-bubble input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
+    position: absolute !important;
+    opacity: 0 !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    pointer-events: none !important;
 }
 
 .scale-option-bubble span {
@@ -846,6 +863,18 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     transition: var(--transition-fast);
+    outline: none !important;
+    position: relative;
+}
+
+.scale-option-bubble span::before,
+.scale-option-bubble span::after,
+.likert-item span::before,
+.likert-item span::after,
+.radio-card::before,
+.radio-card::after {
+    display: none !important;
+    content: none !important;
 }
 
 .scale-option-bubble .option-num {
@@ -853,6 +882,11 @@ body {
     font-weight: 600;
     margin-bottom: 2px;
     color: var(--text-color);
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .scale-option-bubble .option-text {
@@ -861,6 +895,11 @@ body {
     text-align: center;
     line-height: 1.1;
     max-width: 90%;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .scale-option-bubble:hover span {
@@ -871,19 +910,27 @@ body {
 .scale-option-bubble input:checked ~ span {
     background: #4f46e5 !important;
     background-color: #4f46e5 !important;
+    border: 1px solid #6366f1 !important;
     border-color: #6366f1 !important;
     color: #ffffff !important;
     box-shadow: 0 0 12px rgba(99, 102, 241, 0.4) !important;
+    outline: none !important;
 }
 
 .scale-option-bubble input:checked ~ span .option-num {
     color: #ffffff !important;
-    background-color: transparent !important;
     background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .scale-option-bubble input:checked ~ span .option-text {
     color: #ffffff !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 /* Demographics Form Elements */
