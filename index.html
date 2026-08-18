@@ -768,21 +768,6 @@
                             <h4 class="form-subtitle">Yapay Zeka Alışkanlıkları ve Deney Değerlendirmesi</h4>
                         </div>
 
-                        <!-- Habit a -->
-                        <div class="form-group full-width">
-                            <label class="form-label">Sohbet ettiğiniz kişinin verdiğiniz kararlardaki etkisi genel olarak ne
-                                kadardır? (0 - 100 kaydırmalı)</label>
-                            <div class="slider-labels-row">
-                                <span>Hiç etkisi yok</span>
-                                <span>Çok etkili</span>
-                            </div>
-                            <div class="slider-container">
-                                <input type="range" id="demo-ai-effect" min="0" max="100" value="50"
-                                    class="custom-slider">
-                                <span class="slider-value" id="val-demo-ai-effect">50</span>
-                            </div>
-                        </div>
-
                         <!-- Habit b: Duration -->
                         <div class="form-group">
                             <label class="form-label required" for="demo-ai-duration">Ne kadar süredir yapay zeka
@@ -804,15 +789,14 @@
                                 placeholder="Örn: 5 (veya 0)">
                         </div>
 
-                        <!-- Habit e -->
+                        <!-- Habit e: Understanding -->
                         <div class="form-group full-width">
                             <label class="form-label required">Sohbette size verilen cevapları ne kadar açık ve anlaşılır buldunuz?</label>
-                            <p class="sub-label">(1: Hiç açık ve anlaşılır değil, 4: Orta seviyede açık ve anlaşılır, 7: Tamamen açık ve anlaşılır)</p>
                             <div class="likert-container mt-2">
-                                <div class="likert-labels">
-                                    <span>1 (Hiç açık değil)</span>
-                                    <span>4 (Orta derecede)</span>
-                                    <span>7 (Tamamen açık)</span>
+                                <div class="likert-labels likert-labels-3col">
+                                    <span class="label-left">1 (Hiç açık değil)</span>
+                                    <span class="label-center">4 (Orta derecede açık)</span>
+                                    <span class="label-right">7 (Tamamen açık)</span>
                                 </div>
                                 <div class="likert-options">
                                     <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="1"><span>1</span></label>
@@ -829,8 +813,12 @@
                         <!-- Exclusion check: Believability -->
                         <div class="form-group full-width border-top pt-3">
                             <label class="form-label required" style="color: #ffffff; font-weight: 600;">Yaptığınız sohbetin içeriğini ne kadar inandırıcı buldunuz?</label>
-                            <p class="sub-label">(1: Hiç inandırıcı değil, 7: Tamamen inandırıcı)</p>
                             <div class="likert-container mt-2">
+                                <div class="likert-labels likert-labels-3col">
+                                    <span class="label-left">1 (Hiç inandırıcı değil)</span>
+                                    <span class="label-center">4 (Orta derecede inandırıcı)</span>
+                                    <span class="label-right">7 (Tamamen inandırıcı)</span>
+                                </div>
                                 <div class="likert-options">
                                     <label class="likert-item"><input type="radio" name="demo-ai-believability"
                                             value="1"><span>1</span></label>

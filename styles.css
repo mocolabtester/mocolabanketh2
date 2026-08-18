@@ -423,6 +423,31 @@ body {
     font-weight: 500;
 }
 
+.likert-labels-3col {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.likert-labels-3col .label-left {
+    text-align: left;
+    flex: 1;
+}
+
+.likert-labels-3col .label-center {
+    text-align: center;
+    flex: 1;
+}
+
+.likert-labels-3col .label-right {
+    text-align: right;
+    flex: 1;
+}
+
 .likert-options {
     display: flex;
     justify-content: space-between;
@@ -797,6 +822,8 @@ body {
     position: relative;
     flex: 1;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .scale-option-bubble input {
@@ -804,6 +831,7 @@ body {
     opacity: 0;
     width: 0;
     height: 0;
+    pointer-events: none;
 }
 
 .scale-option-bubble span {
@@ -824,6 +852,7 @@ body {
     font-size: 0.95rem;
     font-weight: 600;
     margin-bottom: 2px;
+    color: var(--text-color);
 }
 
 .scale-option-bubble .option-text {
@@ -840,14 +869,21 @@ body {
 }
 
 .scale-option-bubble input:checked ~ span {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 0 10px var(--primary-glow);
+    background: #4f46e5 !important;
+    background-color: #4f46e5 !important;
+    border-color: #6366f1 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.4) !important;
+}
+
+.scale-option-bubble input:checked ~ span .option-num {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    background: transparent !important;
 }
 
 .scale-option-bubble input:checked ~ span .option-text {
-    color: rgba(255, 255, 255, 0.8);
+    color: #ffffff !important;
 }
 
 /* Demographics Form Elements */
@@ -1502,13 +1538,11 @@ body {
     .scale-item-row-options:not(.mails-grid) .scale-option-bubble .option-num {
         font-size: 0.95rem;
         margin-bottom: 0;
-        background-color: rgba(255, 255, 255, 0.05);
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
+        background-color: transparent !important;
+        width: auto;
+        height: auto;
+        display: inline-block;
+        border-radius: 0;
     }
 }
 

@@ -126,7 +126,6 @@ let sessionData = {
     demo_ai_preferred: 0,
     demo_religiosity: 4,
     demo_politics: 4,
-    demo_ai_effect: 50,
     demo_ai_duration: 0,
     demo_ai_hours: 0,
     demo_ai_understanding: 4,
@@ -548,7 +547,6 @@ function initAppNavigation() {
 
     setupSliderListener("demo-religiosity", "val-demo-rel", (val) => sessionData.demo_religiosity = parseInt(val));
     setupSliderListener("demo-politics", "val-demo-pol", (val) => sessionData.demo_politics = parseInt(val));
-    setupSliderListener("demo-ai-effect", "val-demo-ai-effect", (val) => sessionData.demo_ai_effect = parseInt(val));
 
     btnDemoNext.addEventListener("click", () => {
         if (validateDemographics()) {
