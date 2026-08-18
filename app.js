@@ -87,7 +87,7 @@ let sessionData = {
     d1_q1_think: 50,
     d1_q2_conf: 50,
     d1_assigned_model: "",
-    d1_chat_opened: false,
+    d1_chat_opened: 2,
     d1_chat_start_time: 0,
     d1_chat_duration: 0,
     d1_summary: "",
@@ -97,6 +97,7 @@ let sessionData = {
     d1_q1_think_final: 50,
     d1_q2_conf_final: 50,
     d1_q3_ai_influence: 50,
+    d1_ai_error: 0,
 
     // Dilemma 2 (Yemek İsrafı / Market Hediye Kartı)
     d2_initial_choice: 0,
@@ -105,7 +106,7 @@ let sessionData = {
     d2_q1_think: 50,
     d2_q2_conf: 50,
     d2_assigned_model: "",
-    d2_chat_opened: false,
+    d2_chat_opened: 2,
     d2_chat_start_time: 0,
     d2_chat_duration: 0,
     d2_summary: "",
@@ -115,6 +116,7 @@ let sessionData = {
     d2_q1_think_final: 50,
     d2_q2_conf_final: 50,
     d2_q3_ai_influence: 50,
+    d2_ai_error: 0,
 
     // Ölçekler & Demografik (JSON String olarak gönderilecek)
     mms_answers: {},
@@ -129,9 +131,7 @@ let sessionData = {
     demo_ai_duration: 0,
     demo_ai_hours: 0,
     demo_ai_understanding: 4,
-    demo_ai_believability: 4,
-    d1_ai_error: "",
-    d2_ai_error: ""
+    demo_ai_believability: 4
 };
 
 // Sayfa adımlarının progress sırası
@@ -289,8 +289,8 @@ function initAppNavigation() {
 
     if (linkD1Chat && btnD1AiDone) {
         linkD1Chat.addEventListener("click", () => {
-            if (!sessionData.d1_chat_opened) {
-                sessionData.d1_chat_opened = true;
+            if (sessionData.d1_chat_opened !== 1) {
+                sessionData.d1_chat_opened = 1;
                 sessionData.d1_chat_start_time = Date.now();
                 btnD1AiDone.disabled = false;
             }
@@ -322,7 +322,7 @@ function initAppNavigation() {
         let textValid = true;
         const textVal = d1SummaryText.value.trim();
 
-        if (errorChecked && errorChecked.value === "Hayır") {
+        if (errorChecked && (errorChecked.value === "2" || errorChecked.value === "Hayır")) {
             textValid = textVal.length >= 20;
             d1SummaryCount.style.display = "block";
             d1SummaryCount.innerText = `${textVal.length} / 20 karakter (minimum)`;
@@ -373,7 +373,7 @@ function initAppNavigation() {
         sessionData.d1_summary = d1SummaryText.value.trim();
         sessionData.d1_final_choice = parseInt(document.querySelector("input[name='d1-post-choice']:checked").value);
         sessionData.d1_final_rating = parseInt(document.querySelector("input[name='d1-post-rating']:checked").value);
-        sessionData.d1_ai_error = document.querySelector("input[name='d1-ai-error']:checked").value;
+        sessionData.d1_ai_error = parseInt(document.querySelector("input[name='d1-ai-error']:checked").value);
         showStep("instructions-d2");
     });
 
@@ -426,8 +426,8 @@ function initAppNavigation() {
 
     if (linkD2Chat && btnD2AiDone) {
         linkD2Chat.addEventListener("click", () => {
-            if (!sessionData.d2_chat_opened) {
-                sessionData.d2_chat_opened = true;
+            if (sessionData.d2_chat_opened !== 1) {
+                sessionData.d2_chat_opened = 1;
                 sessionData.d2_chat_start_time = Date.now();
                 btnD2AiDone.disabled = false;
             }
@@ -459,7 +459,7 @@ function initAppNavigation() {
         let textValid = true;
         const textVal = d2SummaryText.value.trim();
 
-        if (errorChecked && errorChecked.value === "Hayır") {
+        if (errorChecked && (errorChecked.value === "2" || errorChecked.value === "Hayır")) {
             textValid = textVal.length >= 20;
             d2SummaryCount.style.display = "block";
             d2SummaryCount.innerText = `${textVal.length} / 20 karakter (minimum)`;
@@ -510,7 +510,7 @@ function initAppNavigation() {
         sessionData.d2_summary = d2SummaryText.value.trim();
         sessionData.d2_final_choice = parseInt(document.querySelector("input[name='d2-post-choice']:checked").value);
         sessionData.d2_final_rating = parseInt(document.querySelector("input[name='d2-post-rating']:checked").value);
-        sessionData.d2_ai_error = document.querySelector("input[name='d2-ai-error']:checked").value;
+        sessionData.d2_ai_error = parseInt(document.querySelector("input[name='d2-ai-error']:checked").value);
         showStep("scales");
     });
 
