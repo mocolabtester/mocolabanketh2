@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zeka ve Ahlaki Kararlar Araştırması</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Progress Bar Indicator -->
+        <header class="app-header">
+            <h1 class="logo-title">Bilişsel Davranış ve Ahlak Çalışması</h1>
+            <div class="progress-wrapper" id="progress-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+                <div class="progress-steps">
+                    <span class="step-dot active" data-step="welcome" title="Giriş"></span>
+                    <span class="step-dot" data-step="instructions-d1" title="Yönerge 1"></span>
+                    <span class="step-dot" data-step="d1-init" title="İkilem 1"></span>
+                    <span class="step-dot" data-step="d1-ai" title="AI Tartışma 1"></span>
+                    <span class="step-dot" data-step="d1-post" title="Değerlendirme 1"></span>
+                    <span class="step-dot" data-step="instructions-d2" title="Yönerge 2"></span>
+                    <span class="step-dot" data-step="d2-init" title="İkilem 2"></span>
+                    <span class="step-dot" data-step="d2-ai" title="AI Tartışma 2"></span>
+                    <span class="step-dot" data-step="d2-post" title="Değerlendirme 2"></span>
+                    <span class="step-dot" data-step="scales" title="Ölçekler"></span>
+                    <span class="step-dot" data-step="debrief" title="Bilgilendirme"></span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- 1. WELCOME SCREEN -->
+            <section id="view-welcome" class="card active">
+                <h2 class="section-title text-gradient">Araştırma Katılım ve Onam Formu</h2>
+                <div class="info-box">
+                    <p>Değerli Katılımcı,</p>
+                    <p>Sizi Psikoloji Lisans Öğrencisi Emre Çelik, Psikoloji Yüksek Lisans Öğrencisi Hande Şenel ve Dr.
+                        Öğr. Üyesi Büşra Eylem Aktaş tarafından yürütülen araştırmaya davet ediyoruz.</p>
+                    <p>Bu çalışmanın amacı karar verme süreçlerine dair bazı bilgilerin saptanmasıdır. Araştırmada
+                        sizden tahminen <strong>15 dakika</strong> kadar süre ayırmanız istenmektedir. Bu çalışmaya
+                        katılmak tamamen gönüllülük esasına dayanmaktadır. Çalışmanın amacına ulaşması için sizden
+                        beklenen, kimsenin baskısı veya telkini altında olmadan, size en uygun gelen cevapları
+                        içtenlikle verecek şekilde cevaplamanızdır.</p>
+                    <p>Bu formu okuyup onaylamanız, araştırmaya katılmayı kabul ettiğiniz anlamına gelecektir. Ancak
+                        çalışmaya katılmama veya katıldıktan sonra herhangi bir anda çalışmayı bırakma hakkına da
+                        sahipsiniz. Bu çalışmadan elde edilecek bilgiler tamamen araştırma amacı ile kullanılacak olup
+                        kişisel bilgileriniz gizli tutulacaktır; kişisel bilgileriniz ile eşleştirilmeden ve paylaşılmadan bilimsel yayın amacı ile kullanılabilir.</p>
+                    <p>Eğer araştırmanın amacı ile ilgili verilen bu bilgiler dışında şimdi veya sonra daha fazla
+                        bilgiye ihtiyaç duyarsanız araştırmacıya <strong>emre.celik4@std.medipol.edu.tr</strong> e-posta
+                        adresi üzerinden ulaşabilirsiniz. Araştırma tamamlandığında genel sonuçların sizinle
+                        paylaşılmasını istiyorsanız lütfen araştırmacıya iletiniz.</p>
+                </div>
+
+                <div class="consent-agreement">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="consent-check">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">Çalışma hakkında bilgilendirildim. Verilerimin bilimsel amaçlarla
+                            anonim olarak kullanılmasını kabul ediyorum ve çalışmaya katılmayı onaylıyorum.</span>
+                    </label>
+                </div>
+
+                <div class="action-footer">
+                    <button class="btn btn-primary" id="btn-start" disabled>
+                        <span>Deneye Başla</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 1b. STUDY INSTRUCTIONS SCREEN 1 -->
+            <section id="view-instructions-d1" class="card">
+                <span class="badge">Aşama 2 / Çalışma Yönergesi</span>
+                <h2 class="section-title text-gradient">1. Bölüm Yönergesi</h2>
+                <div class="info-box">
+                    <p>Bu bölümde sizden istenenler aşağıda özetlenmiştir:</p>
+                    <ol class="mt-2">
+                        <li class="mb-2"><strong>Ahlaki Senaryoyu Okuma:</strong> Bir sonraki sayfada karşınıza bir okulda geçen ahlaki bir ikilem senaryosu gelecektir. Lütfen bu senaryoyu dikkatlice okuyunuz.</li>
+                        <li class="mb-2"><strong>Karar Verme ve Değerlendirme:</strong> Senaryoyu okuduktan sonra bu durumdaki ahlaki kararınızı belirten soruları yanıtlamanız istenecektir.</li>
+                    </ol>
+                    <p class="mt-3">Lütfen bir sonraki sayfaya geçerek senaryoyu okumaya başlayınız.</p>
+                </div>
+                <div class="action-footer">
+                    <button class="btn btn-primary" id="btn-instructions-d1-next">
+                        <span>Devam Et</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. DILEMMA 1 INITIAL -->
+            <section id="view-d1-init" class="card">
+                <span class="badge">Aşama 1 / Senaryo A</span>
+                <h2 class="section-title">Ücretsiz Yemek Uygulaması İkilemi</h2>
+                <div class="dilemma-text">
+                    <p>Bir devlet okulunda müdürsünüz. Okulda her öğle yemeğinde tüm öğrencilere koşulsuz ve ücretsiz standart yemek sunulmaktadır. Ancak her gün yüzlerce porsiyon yemek tüketilmeden çöpe gitmektedir. Yemek yalnızca maddi durumu yetersiz olduğunu belgeleyen ihtiyaç sahibi öğrencilere dağıtılırsa yemek israfı önlenecek, ancak bu durum öğrenciler arasında ayrışmaya ve ihtiyaç sahibi çocukların damgalanmasına yol açarak tüm öğrencilere sunulan eşit tutum sona erecektir. Yemek tüm öğrencilere koşulsuz sunulmaya devam ederse eşitlik korunacak ve kimse etiketlenmeyecek, ancak her gün yüzlerce porsiyon gıda israf edilecektir. Bir müdür olarak, gıda israfını önlemek ile tüm öğrencilere eşit ve ayrımsız yaklaşma ilkesini sürdürmek arasında bir seçim yapmak zorundınız.</p>
+                </div>
+
+                <div class="question-container">
+                    <h3 class="question-title">Bu durumda ücretsiz yemek uygulamasının yalnızca ihtiyaç bildiren öğrencilerle sınırlandırılması ahlaken uygun mudur?</h3>
+                    <div class="choice-group">
+                        <label class="btn-radio">
+                            <input type="radio" name="d1-init-choice" value="1">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <span class="radio-label">Evet, israfı önlemek için öğrenciler arasındaki eşit tutumun sona ermesi ahlaken uygundur.</span>
+                            </span>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" name="d1-init-choice" value="2">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                                <span class="radio-label">Hayır, israfı önlemek için öğrenciler arasındaki eşit tutumun sona ermesi ahlaken uygun değildir.</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <h3 class="question-title mt-4">Ahlaki uygunluk derecesini 1-7 arası puanlayınız.</h3>
+                    <div class="likert-container">
+                        <div class="likert-labels">
+                            <span>1 (Hiç uygun değil)</span>
+                            <span>7 (Tamamen uygun)</span>
+                        </div>
+                        <div class="likert-options">
+                            <label class="likert-item"><input type="radio" name="d1-init-rating"
+                                    value="1"><span>1</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-init-rating"
+                                    value="2"><span>2</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-init-rating"
+                                    value="3"><span>3</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-init-rating"
+                                    value="4"><span>4</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-init-rating"
+                                    value="5"><span>5</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-init-rating"
+                                    value="6"><span>6</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-init-rating"
+                                    value="7"><span>7</span></label>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Sliders -->
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz kararı ne kadar düşündünüz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç düşünmedim</span>
+                            <span>Çok düşündüm</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d1-init-q1-think" min="0" max="100" value="50"
+                                class="custom-slider">
+                            <span class="slider-value" id="val-d1-init-q1">50</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz karardan ne kadar eminsiniz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç emin değilim</span>
+                            <span>Tamamen eminim</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d1-init-q2-conf" min="0" max="100" value="50" class="custom-slider">
+                            <span class="slider-value" id="val-d1-init-q2">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button class="btn btn-primary" id="btn-d1-init-next" disabled>
+                        <span>İlerle</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. AI REDIRECT 1 -->
+            <section id="view-d1-ai" class="card">
+                <span class="badge badge-accent">Canlı Etkileşim Aşaması</span>
+                <h2 class="section-title">Canlı Etkileşim Aşaması</h2>
+                <div class="instruction-box border-accent-light">
+                    <p><i class="fa-solid fa-circle-info info-icon"></i> <strong>Çalışma Yönergesi: Canlı Etkileşim Aşaması</strong></p>
+                    <p>Bu aşamada, ekranda yer alan ahlaki ikilemi değerlendirmek üzere araştırma ekibimizden o an sistemde aktif olan bir moderatör / araştırma asistanı ile canlı bir sohbet odasına bağlanacaksınız.</p>
+                    <p>Lütfen aşağıdaki kurallara dikkat ediniz:</p>
+                    <ol>
+                        <li class="mb-2">Karşı tarafla mesajlaşırken ahlaki ikilem hakkındaki görüşlerinizi serbestçe paylaşabilir, karşı tarafın sunduğu gerekçeleri sorgulayabilir veya sorular sorabilirsiniz.</li>
+                        <li class="mb-2">Karşı taraf mesajınızı okuyup yanıtını yazarken kısa süreli gecikmeler ve "yazıyor..." bildirimleri görebilirsiniz; lütfen sayfayı yenilemeyiniz veya kapatmayınız.</li>
+                        <li class="mb-2">Sistem yoğunluğuna bağlı olarak moderatör / araştırma asistanı 1 dakika içinde odaya bağlanmazsa veya yanıt vermezse anketi kapatabilirsiniz.</li>
+                        <li class="mb-2">Etkileşimin verimliliği açısından sohbetin yalnızca ekrandaki senaryo üzerinde kalması beklenmektedir; kişisel bilgiler paylaşılmamalıdır.</li>
+                        <li class="mb-2">Karşılıklı görüş alışverişiniz tamamlandığında otomatik olarak bir sonraki değerlendirme ekranına yönlendirileceksiniz.</li>
+                        <li class="mb-2">Sohbeti başlatabilmek için önce aşağıdaki hazırlık onay kutusunu işaretlemeniz gerekmektedir.</li>
+                    </ol>
+                </div>
+
+                <div class="consent-wrapper mt-4">
+                    <label class="btn-checkbox">
+                        <input type="checkbox" id="d1-ai-ready-check">
+                        <span class="checkbox-card">
+                            <span class="checkbox-label">Okuduğum ahlaki ikilemdeki kararımı ve gerekçelerini canlı olarak tartışmaya hazırım.</span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="action-footer mt-4">
+                    <button class="btn btn-secondary" id="btn-d1-ai-back">Geri Dön</button>
+                    <a href="https://chatgpt.com/" target="_blank" class="btn btn-accent disabled-link"
+                        id="btn-d1-chat-link">Sohbeti başlat</a>
+                    <button class="btn btn-primary" id="btn-d1-ai-done" disabled>
+                        <span>Tartışmayı Tamamladım</span> <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4. DILEMMA 1 POST-DISCUSSION -->
+            <section id="view-d1-post" class="card">
+                <span class="badge">Değerlendirme Aşaması</span>
+                <h2 class="section-title">İkilem Yeniden Değerlendirme</h2>
+
+                <div class="question-container">
+                    <!-- AI Error Check -->
+                    <h3 class="question-title required">1. Sohbet ederken herhangi bir teknik hata veya sunucu bağlantı sorunu yaşadınız mı?</h3>
+                    <div class="choice-group mb-4">
+                        <label class="btn-radio">
+                            <input type="radio" name="d1-ai-error" value="Hayır">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <span class="radio-label">Hayır, sorunsuz görüştüm</span>
+                            </span>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" name="d1-ai-error" value="Evet">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                                <span class="radio-label">Evet, hata aldım / yanıt alamadım</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Summary Box -->
+                    <h3 class="question-title required" id="d1-summary-title">2. Sohbet ettiğiniz kişinin sunduğu argümanları kısaca özetleyiniz.</h3>
+                    <textarea id="d1-summary-text" rows="4"
+                        placeholder="Sohbet ettiğiniz kişinin savunduğu temel gerekçeler ve sunduğu fikirler..."
+                        class="custom-textarea"></textarea>
+                    <div class="char-count" id="d1-summary-count">0 / 20 karakter (minimum)</div>
+
+                    <hr class="divider">
+
+                    <!-- Repeated Dilemma -->
+                    <h3 class="question-title">3. Sohbet ettikten sonra sizce; ücretsiz yemek uygulamasının yalnızca ihtiyaç bildiren öğrencilerle sınırlandırılması ahlaken uygun mudur?</h3>
+                    <div class="choice-group">
+                        <label class="btn-radio">
+                            <input type="radio" name="d1-post-choice" value="1">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <span class="radio-label">Evet, israfı önlemek için öğrenciler arasındaki eşit tutumun sona ermesi ahlaken uygundur.</span>
+                            </span>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" name="d1-post-choice" value="2">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                                <span class="radio-label">Hayır, israfı önlemek için öğrenciler arasındaki eşit tutumun sona ermesi ahlaken uygun değildir.</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <h3 class="question-title mt-4">Ahlaki uygunluk derecesini 1-7 arası puanlayınız.</h3>
+                    <div class="likert-container">
+                        <div class="likert-labels">
+                            <span>1 (Hiç uygun değil)</span>
+                            <span>7 (Tamamen uygun)</span>
+                        </div>
+                        <div class="likert-options">
+                            <label class="likert-item"><input type="radio" name="d1-post-rating"
+                                    value="1"><span>1</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-post-rating"
+                                    value="2"><span>2</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-post-rating"
+                                    value="3"><span>3</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-post-rating"
+                                    value="4"><span>4</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-post-rating"
+                                    value="5"><span>5</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-post-rating"
+                                    value="6"><span>6</span></label>
+                            <label class="likert-item"><input type="radio" name="d1-post-rating"
+                                    value="7"><span>7</span></label>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Repeat Sliders + Q3 -->
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz kararı ne kadar düşündünüz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç düşünmedim</span>
+                            <span>Çok düşündüm</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d1-post-q1-think" min="0" max="100" value="50"
+                                class="custom-slider">
+                            <span class="slider-value" id="val-d1-post-q1">50</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz karardan ne kadar eminsiniz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç emin değilim</span>
+                            <span>Tamamen eminim</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d1-post-q2-conf" min="0" max="100" value="50" class="custom-slider">
+                            <span class="slider-value" id="val-d1-post-q2">50</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <h3 class="question-title text-accent">Verdiğiniz kararda sohbet ettiğiniz kişinin ne derece etkili olduğunu düşünüyorsunuz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç etkisi yok</span>
+                            <span>Çok etkili</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d1-post-q3-influence" min="0" max="100" value="50"
+                                class="custom-slider">
+                            <span class="slider-value" id="val-d1-post-q3">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button class="btn btn-secondary" id="btn-d1-post-back">
+                        <i class="fa-solid fa-arrow-left"></i> <span>Geri Dön</span>
+                    </button>
+                    <button class="btn btn-primary" id="btn-d1-post-next" disabled>
+                        <span>İkinci Aşamaya Geç</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4b. STUDY INSTRUCTIONS SCREEN 2 -->
+            <section id="view-instructions-d2" class="card">
+                <span class="badge">Aşama 6 / Çalışma Yönergesi</span>
+                <h2 class="section-title text-gradient">2. Bölüm Yönergesi</h2>
+                <div class="info-box">
+                    <p>İlk bölümü tamamladınız. Bu ikinci bölümde sizden istenenler aşağıda özetlenmiştir:</p>
+                    <ol class="mt-2">
+                        <li class="mb-2"><strong>Yeni Ahlaki Senaryoyu Okuma:</strong> Bir sonraki sayfada karşınıza bir iş yerinde geçen yeni ve farklı bir ahlaki ikilem senaryosu gelecektir. Lütfen bu senaryoyu dikkatlice okuyunuz.</li>
+                        <li class="mb-2"><strong>Karar Verme ve Değerlendirme:</strong> Senaryoyu okuduktan sonra bu durumdaki ahlaki kararınızı belirten soruları yanıtlamanız istenecektir.</li>
+                    </ol>
+                    <p class="mt-3">Lütfen bir sonraki sayfaya geçerek senaryoyu okumaya başlayınız.</p>
+                </div>
+                <div class="action-footer">
+                    <button class="btn btn-primary" id="btn-instructions-d2-next">
+                        <span>Devam Et</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 5. DILEMMA 2 INITIAL -->
+            <section id="view-d2-init" class="card">
+                <span class="badge">Aşama 2 / Senaryo B</span>
+                <h2 class="section-title">Hediye Kartı İkilemi</h2>
+                <div class="dilemma-text">
+                    <p>Büyük bir şirkette yöneticisiniz. Elinizde, gün sonunda geçerliliğini kaybedecek ve kullanılmadığı takdirde tamamen geçersiz olacak birkaç market hediye kartı bulunmaktadır. Kart sayısı tüm çalışanlara yetecek kadar değildir.</p>
+                    <p>Kartları yalnızca bazı çalışanlara dağıtırsanız kartlar israf edilmeyecek, ancak diğer çalışanlar kart alamayacağı için tüm çalışanlara eşit davranılmamış olacaktır. Kartları hiç kimseye vermezseniz tüm çalışanlara eşit davranılmış olacak, ancak kartlar kullanılmadan geçersiz hale gelecektir. Şirket, kartların israf edilmesini önlemek ile çalışanlara eşit davranmak arasında bir seçim yapmak zorundadır.</p>
+                </div>
+
+                <div class="question-container">
+                    <h3 class="question-title">Bu durumda market hediye kartlarının yalnızca bazı çalışanlara dağıtılması ahlaken uygun mudur?</h3>
+                    <div class="choice-group">
+                        <label class="btn-radio">
+                            <input type="radio" name="d2-init-choice" value="1">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <span class="radio-label">Evet, israfı önlemek için kartları çalışanlara eşit olmayan şekilde dağıtmak ahlaken uygundur.</span>
+                            </span>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" name="d2-init-choice" value="2">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                                <span class="radio-label">Hayır, israfı önlemek için kartları çalışanlara eşit olmayan şekilde dağıtmak ahlaken uygun değildir.</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <h3 class="question-title mt-4">Ahlaki uygunluk derecesini 1-7 arası puanlayınız.</h3>
+                    <div class="likert-container">
+                        <div class="likert-labels">
+                            <span>1 (Hiç uygun değil)</span>
+                            <span>7 (Tamamen uygun)</span>
+                        </div>
+                        <div class="likert-options">
+                            <label class="likert-item"><input type="radio" name="d2-init-rating"
+                                    value="1"><span>1</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-init-rating"
+                                    value="2"><span>2</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-init-rating"
+                                    value="3"><span>3</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-init-rating"
+                                    value="4"><span>4</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-init-rating"
+                                    value="5"><span>5</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-init-rating"
+                                    value="6"><span>6</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-init-rating"
+                                    value="7"><span>7</span></label>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Sliders -->
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz kararı ne kadar düşündünüz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç düşünmedim</span>
+                            <span>Çok düşündüm</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d2-init-q1-think" min="0" max="100" value="50"
+                                class="custom-slider">
+                            <span class="slider-value" id="val-d2-init-q1">50</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz karardan ne kadar eminsiniz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç emin değilim</span>
+                            <span>Tamamen eminim</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d2-init-q2-conf" min="0" max="100" value="50" class="custom-slider">
+                            <span class="slider-value" id="val-d2-init-q2">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button class="btn btn-primary" id="btn-d2-init-next" disabled>
+                        <span>İlerle</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 6. AI REDIRECT 2 (CONFLITING AI) -->
+            <section id="view-d2-ai" class="card">
+                <span class="badge badge-accent">Canlı Etkileşim Aşaması</span>
+                <h2 class="section-title">Canlı Etkileşim Aşaması</h2>
+                <div class="instruction-box border-accent-light">
+                    <p><i class="fa-solid fa-circle-info info-icon"></i> <strong>Çalışma Yönergesi: Canlı Etkileşim Aşaması</strong></p>
+                    <p>Bu aşamada, ekranda yer alan ahlaki ikilemi değerlendirmek üzere araştırma ekibimizden o an sistemde aktif olan bir moderatör / araştırma asistanı ile canlı bir sohbet odasına bağlanacaksınız.</p>
+                    <p>Lütfen aşağıdaki kurallara dikkat ediniz:</p>
+                    <ol>
+                        <li class="mb-2">Karşı tarafla mesajlaşırken ahlaki ikilem hakkındaki görüşlerinizi serbestçe paylaşabilir, karşı tarafın sunduğu gerekçeleri sorgulayabilir veya sorular sorabilirsiniz.</li>
+                        <li class="mb-2">Karşı taraf mesajınızı okuyup yanıtını yazarken kısa süreli gecikmeler ve "yazıyor..." bildirimleri görebilirsiniz; lütfen sayfayı yenilemeyiniz veya kapatmayınız.</li>
+                        <li class="mb-2">Sistem yoğunluğuna bağlı olarak moderatör / araştırma asistanı 1 dakika içinde odaya bağlanmazsa veya yanıt vermezse anketi kapatabilirsiniz.</li>
+                        <li class="mb-2">Etkileşimin verimliliği açısından sohbetin yalnızca ekrandaki senaryo üzerinde kalması beklenmektedir; kişisel bilgiler paylaşılmamalıdır.</li>
+                        <li class="mb-2">Karşılıklı görüş alışverişiniz tamamlandığında otomatik olarak bir sonraki değerlendirme ekranına yönlendirileceksiniz.</li>
+                        <li class="mb-2">Sohbeti başlatabilmek için önce aşağıdaki hazırlık onay kutusunu işaretlemeniz gerekmektedir.</li>
+                    </ol>
+                </div>
+
+                <div class="consent-wrapper mt-4">
+                    <label class="btn-checkbox">
+                        <input type="checkbox" id="d2-ai-ready-check">
+                        <span class="checkbox-card">
+                            <span class="checkbox-label">Okuduğum ahlaki ikilemdeki kararımı ve gerekçelerini canlı olarak tartışmaya hazırım.</span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="action-footer mt-4">
+                    <button class="btn btn-secondary" id="btn-d2-ai-back">Geri Dön</button>
+                    <a href="https://copilot.microsoft.com/" target="_blank" class="btn btn-accent disabled-link"
+                        id="btn-d2-chat-link">Sohbeti başlat</a>
+                    <button class="btn btn-primary" id="btn-d2-ai-done" disabled>
+                        <span>Tartışmayı Tamamladım</span> <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 7. DILEMMA 2 POST-DISCUSSION -->
+            <section id="view-d2-post" class="card">
+                <span class="badge">Değerlendirme Aşaması</span>
+                <h2 class="section-title">İkilem Yeniden Değerlendirme</h2>
+
+                <div class="question-container">
+                    <!-- AI Error Check -->
+                    <h3 class="question-title required">1. Sohbet ederken herhangi bir teknik hata veya sunucu bağlantı sorunu yaşadınız mı?</h3>
+                    <div class="choice-group mb-4">
+                        <label class="btn-radio">
+                            <input type="radio" name="d2-ai-error" value="Hayır">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <span class="radio-label">Hayır, sorunsuz görüştüm</span>
+                            </span>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" name="d2-ai-error" value="Evet">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                                <span class="radio-label">Evet, hata aldım / yanıt alamadım</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Summary Box -->
+                    <h3 class="question-title required" id="d2-summary-title">2. Sohbet ettiğiniz kişinin sunduğu argümanları kısaca özetleyiniz.</h3>
+                    <textarea id="d2-summary-text" rows="4"
+                        placeholder="Sohbet ettiğiniz kişinin savunduğu temel gerekçeler..."
+                        class="custom-textarea"></textarea>
+                    <div class="char-count" id="d2-summary-count">0 / 20 karakter (minimum)</div>
+
+                    <hr class="divider">
+
+                    <!-- Repeated Dilemma -->
+                    <h3 class="question-title">3. Sohbet ettikten sonra sizce; market hediye kartlarının yalnızca bazı çalışanlara dağıtılması ahlaken uygun mudur?</h3>
+                    <div class="choice-group">
+                        <label class="btn-radio">
+                            <input type="radio" name="d2-post-choice" value="1">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-check"></i>
+                                <span class="radio-label">Evet, israfı önlemek için kartları çalışanlara eşit olmayan şekilde dağıtmak ahlaken uygundur.</span>
+                            </span>
+                        </label>
+                        <label class="btn-radio">
+                            <input type="radio" name="d2-post-choice" value="2">
+                            <span class="radio-card">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                                <span class="radio-label">Hayır, israfı önlemek için kartları çalışanlara eşit olmayan şekilde dağıtmak ahlaken uygun değildir.</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <h3 class="question-title mt-4">Ahlaki uygunluk derecesini 1-7 arası puanlayınız.</h3>
+                    <div class="likert-container">
+                        <div class="likert-labels">
+                            <span>1 (Hiç uygun değil)</span>
+                            <span>7 (Tamamen uygun)</span>
+                        </div>
+                        <div class="likert-options">
+                            <label class="likert-item"><input type="radio" name="d2-post-rating"
+                                    value="1"><span>1</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-post-rating"
+                                    value="2"><span>2</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-post-rating"
+                                    value="3"><span>3</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-post-rating"
+                                    value="4"><span>4</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-post-rating"
+                                    value="5"><span>5</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-post-rating"
+                                    value="6"><span>6</span></label>
+                            <label class="likert-item"><input type="radio" name="d2-post-rating"
+                                    value="7"><span>7</span></label>
+                        </div>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Repeat Sliders + Q3 -->
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz kararı ne kadar düşündünüz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç düşünmedim</span>
+                            <span>Çok düşündüm</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d2-post-q1-think" min="0" max="100" value="50"
+                                class="custom-slider">
+                            <span class="slider-value" id="val-d2-post-q1">50</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <h3 class="question-title">Verdiğiniz karardan ne kadar eminsiniz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç emin değilim</span>
+                            <span>Tamamen eminim</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d2-post-q2-conf" min="0" max="100" value="50" class="custom-slider">
+                            <span class="slider-value" id="val-d2-post-q2">50</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <h3 class="question-title text-accent">Verdiğiniz kararda sohbet ettiğiniz kişinin ne derece etkili olduğunu düşünüyorsunuz?</h3>
+                        <div class="slider-labels-row">
+                            <span>Hiç etkisi yok</span>
+                            <span>Çok etkili</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="d2-post-q3-influence" min="0" max="100" value="50"
+                                class="custom-slider">
+                            <span class="slider-value" id="val-d2-post-q3">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button class="btn btn-secondary" id="btn-d2-post-back">
+                        <i class="fa-solid fa-arrow-left"></i> <span>Geri Dön</span>
+                    </button>
+                    <button class="btn btn-primary" id="btn-d2-post-next" disabled>
+                        <span>Son Aşamaya Geç</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 8. SCALES (MMS and AI LITERACY) -->
+            <section id="view-scales" class="card">
+                <span class="badge">Değerlendirme Ölçekleri</span>
+
+                <!-- Tab Switching structure inside scales view -->
+                <div class="scale-nav">
+                    <button class="scale-tab active" id="tab-mms">Ölçek 1</button>
+                    <button class="scale-tab" id="tab-ai-lit" disabled>Ölçek 2</button>
+                    <button class="scale-tab" id="tab-demographics" disabled>Demografik Bilgiler</button>
+                </div>
+
+                <!-- 8a. Moral Metacognition Scale -->
+                <div id="scale-content-mms" class="scale-content-pane active">
+                    <h2 class="section-title">Ölçek 1</h2>
+                    <p class="scale-desc">Lütfen aşağıdaki ifadelerin sizin karar alma yapınıza ne derece uyduğunu
+                        belirtin. (1: Kesinlikle Katılmıyorum, 6: Kesinlikle Katılıyorum)</p>
+
+                    <div class="scale-items-list" id="mms-questions-container">
+                        <!-- Javascript will dynamically inject questions here -->
+                    </div>
+
+                    <div class="action-footer mt-4">
+                        <button class="btn btn-primary" id="btn-mms-next">
+                            <span>Sonraki Ölçeğe Geç</span> <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 8b. AI Literacy Scale -->
+                <div id="scale-content-ai-lit" class="scale-content-pane">
+                    <h2 class="section-title">Ölçek 2</h2>
+                    <p class="scale-desc">Aşağıda, yapay zeka ile uğraşırken sahip olunabilecek farklı yeteneklerin
+                        açıklamalarını okuyacaksınız. Lütfen kendinizi değerlendirin: Yetenekleriniz ne kadar belirgin?
+                        (0: Hiç belirgin değil, 10: Çok belirgin)</p>
+
+                    <div class="scale-items-list" id="ai-lit-questions-container">
+                        <!-- Javascript will dynamically inject questions here -->
+                    </div>
+
+                    <div class="action-footer mt-4">
+                        <button class="btn btn-primary" id="btn-ai-lit-next">
+                            <span>Sosyodemografik Forma Geç</span> <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 8c. Demographics Form -->
+                <div id="scale-content-demographics" class="scale-content-pane">
+                    <h2 class="section-title">Sosyodemografik Bilgi Formu</h2>
+                    <p class="scale-desc">Lütfen aşağıdaki kişisel bilgileri doldurunuz.</p>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label required" for="demo-age">Yaşınız</label>
+                            <input type="number" id="demo-age" min="15" max="100" class="form-input"
+                                placeholder="Örn: 21">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required" for="demo-gender">Cinsiyetiniz</label>
+                            <select id="demo-gender" class="form-select">
+                                <option value="" disabled selected>Seçiniz</option>
+                                <option value="1">Kadın</option>
+                                <option value="2">Erkek</option>
+                                <option value="3">Belirtmek İstemiyorum</option>
+                                <option value="4">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required" for="demo-ses">Çocukluğunuzdaki sosyo-ekonomik durumunuzu en iyi temsil eden seçeneği işaretleyiniz.</label>
+                            <select id="demo-ses" class="form-select">
+                                <option value="" disabled selected>Seçiniz</option>
+                                <option value="1">Çok Kötü</option>
+                                <option value="2">Kötü</option>
+                                <option value="3">Orta</option>
+                                <option value="4">İyi</option>
+                                <option value="5">Çok İyi</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Daha önce hiç Yapay Zeka (ChatGPT, Gemini vb.)
+                                kullandınız mı?</label>
+                            <div class="radio-row mt-2">
+                                <label class="custom-radio-inline">
+                                    <input type="radio" name="demo-ai-used" value="1">
+                                    <span class="radio-label-text">Evet</span>
+                                </label>
+                                <label class="custom-radio-inline">
+                                    <input type="radio" name="demo-ai-used" value="2">
+                                    <span class="radio-label-text">Hayır</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required" for="demo-ai-preferred">En sık kullandığınız yapay zeka aracı hangisidir?</label>
+                            <select id="demo-ai-preferred" class="form-select">
+                                <option value="" disabled selected>Seçiniz</option>
+                                <option value="1">ChatGPT</option>
+                                <option value="2">Claude</option>
+                                <option value="3">Gemini</option>
+                                <option value="4">Grok</option>
+                                <option value="5">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">Kendinizi ne derece dindar olarak tanımlarsınız?</label>
+                            <div class="slider-labels-row">
+                                <span>1 (Hiç dindar değilim)</span>
+                                <span>7 (Tamamen dindarım)</span>
+                            </div>
+                            <div class="slider-container">
+                                <input type="range" id="demo-religiosity" min="1" max="7" value="4"
+                                    class="custom-slider">
+                                <span class="slider-value" id="val-demo-rel">4</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">Siyasi/politik görüşünüz genel olarak nerededir?</label>
+                            <div class="slider-labels-row">
+                                <span>1 (Sol)</span>
+                                <span>7 (Sağ)</span>
+                            </div>
+                            <div class="slider-container">
+                                <input type="range" id="demo-politics" min="1" max="7" value="4"
+                                    class="custom-slider">
+                                <span class="slider-value" id="val-demo-pol">4</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width border-top pt-3 mt-2">
+                            <h4 class="form-subtitle">Yapay Zeka Alışkanlıkları ve Deney Değerlendirmesi</h4>
+                        </div>
+
+                        <!-- Habit a -->
+                        <div class="form-group full-width">
+                            <label class="form-label">Sohbet ettiğiniz kişinin verdiğiniz kararlardaki etkisi genel olarak ne
+                                kadardır? (0 - 100 kaydırmalı)</label>
+                            <div class="slider-labels-row">
+                                <span>Hiç etkisi yok</span>
+                                <span>Çok etkili</span>
+                            </div>
+                            <div class="slider-container">
+                                <input type="range" id="demo-ai-effect" min="0" max="100" value="50"
+                                    class="custom-slider">
+                                <span class="slider-value" id="val-demo-ai-effect">50</span>
+                            </div>
+                        </div>
+
+                        <!-- Habit b: Duration -->
+                        <div class="form-group">
+                            <label class="form-label required" for="demo-ai-duration">Ne kadar süredir yapay zeka
+                                kullanmaktasınız?</label>
+                            <select id="demo-ai-duration" class="form-select">
+                                <option value="" disabled selected>Seçiniz</option>
+                                <option value="1">Hiç kullanmadım</option>
+                                <option value="2">6 aydan az</option>
+                                <option value="3">6 ay - 1 yıl</option>
+                                <option value="4">1 yıl - 2 yıl</option>
+                                <option value="5">2 yıldan fazla</option>
+                            </select>
+                        </div>
+
+                        <!-- Habit c: Weekly Hours -->
+                        <div class="form-group">
+                            <label class="form-label required" for="demo-ai-hours">Yapay zekâyı haftada kaç saat kullanırsınız? Hiç kullanmıyorsanız sıfır yazınız.</label>
+                            <input type="number" id="demo-ai-hours" min="0" max="168" step="any" class="form-input"
+                                placeholder="Örn: 5 (veya 0)">
+                        </div>
+
+                        <!-- Habit e -->
+                        <div class="form-group full-width">
+                            <label class="form-label required">Sohbette size verilen cevapları ne kadar açık ve anlaşılır buldunuz?</label>
+                            <p class="sub-label">(1: Hiç açık ve anlaşılır değil, 4: Orta seviyede açık ve anlaşılır, 7: Tamamen açık ve anlaşılır)</p>
+                            <div class="likert-container mt-2">
+                                <div class="likert-labels">
+                                    <span>1 (Hiç açık değil)</span>
+                                    <span>4 (Orta derecede)</span>
+                                    <span>7 (Tamamen açık)</span>
+                                </div>
+                                <div class="likert-options">
+                                    <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="1"><span>1</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="2"><span>2</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="3"><span>3</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="4"><span>4</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="5"><span>5</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="6"><span>6</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-understanding" value="7"><span>7</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exclusion check: Believability -->
+                        <div class="form-group full-width border-top pt-3">
+                            <label class="form-label required" style="color: #ffffff; font-weight: 600;">Yaptığınız sohbetin içeriğini ne kadar inandırıcı buldunuz?</label>
+                            <p class="sub-label">(1: Hiç inandırıcı değil, 7: Tamamen inandırıcı)</p>
+                            <div class="likert-container mt-2">
+                                <div class="likert-options">
+                                    <label class="likert-item"><input type="radio" name="demo-ai-believability"
+                                            value="1"><span>1</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-believability"
+                                            value="2"><span>2</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-believability"
+                                            value="3"><span>3</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-believability"
+                                            value="4"><span>4</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-believability"
+                                            value="5"><span>5</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-believability"
+                                            value="6"><span>6</span></label>
+                                    <label class="likert-item"><input type="radio" name="demo-ai-believability"
+                                            value="7"><span>7</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-footer mt-4">
+                        <button class="btn btn-primary" id="btn-demographics-next">
+                            <span>Anketi Gönder ve Devam Et</span> <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. DEBRIEFING (POST-PARTICIPATION INFORMATION) -->
+            <section id="view-debrief" class="card">
+                <div class="success-banner">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <h3>Araştırma Cevaplarınız Başarıyla Kaydedildi!</h3>
+                    <p>Katkınız bilimsel çalışmamız için çok değerlidir.</p>
+                </div>
+
+                <span class="badge badge-accent">Katılım Sonrası Bilgilendirme</span>
+                <h2 class="section-title text-gradient">Katılım Sonrası Bilgilendirme Formu (Debriefing)</h2>
+
+                <div class="debrief-box scrollable-debrief">
+                    <p>Deneye katılımınız için çok teşekkür ederiz. Bu form, araştırmanın gerçek amacı hakkında sizi
+                        bilgilendirmek amacıyla hazırlanmıştır.</p>
+                    <p><strong>Araştırmanın Gerçek Amacı:</strong></p>
+                    <p>Bu çalışmada, bir moderatör/araştırma asistanı ile gerçekleştiği düşünülen etkileşimin ve sunulan etik argümanların (uyumlu veya zıt görüşler),
+                        katılımcılarda ortaya çıkacak <em>durumsal üstbiliş seviyeleri</em> (karar verme süreçlerini
+                        izleme ve emin olma düzeyleri) aracılığıyla <em>ahlaki kararlar</em> üzerindeki etkisini test
+                        etmeyi amaçladık.</p>
+                    <p>Psikoloji çalışmalarında araştırmanın amacını ve yöntemini açıkça belirtmek insanların tepkilerini ve algılarını değiştirebileceğinden bu tür kandırmalar kullanılabilmektedir. Bu çalışmada da araştırmanın niyetini açıkça beyan etmek düşüncelerinizin etkileşimden nasıl etkilendiğini gözlemeyi zorlaştırabileceğinden bu amaç gizlenmiştir.</p>
+                    <p><strong>Pasif Yanıltma Açıklaması:</strong></p>
+                    <p>Deney başında size belirtilmemiş olan manipülasyonlar şunlardır:</p>
+                    <ol class="mt-2 mb-2">
+                        <li><strong>Muhatap Manipülasyonu:</strong> Sohbet odasında etkileşimde bulunduğunuz kişi canlı bir araştırma asistanı / moderatör değil, insan etkileşimini simüle eden bir <strong>yapay zeka modeliydi</strong>.</li>
+                        <li><strong>İçerik Manipülasyonu:</strong> Karşı tarafın sunduğu argümanlar tarafsız bir insanın spontane fikirleri olmayıp, belirli bir ahlaki pozisyonu katı bir şekilde savunmak üzere programlanmıştı (bir aşamada görüşünüzü destekleyen, diğer aşamada ise zıt olan pozisyon).</li>
+                    </ol>
+                    <ul>
+                        <li><strong>Model 1 (`wstflh`):</strong> İsrafın ahlaki bedeli ne olursa olsun, mutlak eşitliğin
+                            ve kuralların çiğnenemez olduğunu savunmaktadır.</li>
+                        <li><strong>Model 2 (`unfrnsh`):</strong> İsrafın mutlak bir kötülük olduğunu ve israfı önlemek
+                            adına bazı adaletsizliklere/ayrımcılıklara göz yumulması gerektiğini savunmaktadır.</li>
+                    </ul>
+                    <p class="mt-2">Bu manipülasyon, insanların karşısındakini "insan bir muhatap" olarak algıladıklarında, aldıkları destekleyici veya çürütücü argümanlar karşısında ahlaki kararlarını nasıl değiştirdiklerini ve bilişsel eminliklerinin bu süreci nasıl yönlendirdiğini anlamamız açısından gerekliydi.</p>
+                </div>
+
+                <div class="info-box border-accent mt-4">
+                    <p><i class="fa-solid fa-circle-info text-accent"></i> <strong>Katılım Teşekkürü & Ek Puan Bilgisi:</strong></p>
+                    <p>Çalışmamıza katıldığınız için teşekkür ederiz! Cevaplarınız başarıyla kaydedilmiştir.</p>
+                    <p class="mt-2">Eğer Gelişim Psikolojisi 2 dersi kapsamında **ek puan alacak bir öğrenciyseniz**, aşağıdaki **"Okudum, Ek Puan Formuna İlerle"** butonuna tıklayarak bilgilerinizi giriniz.</p>
+                    <p class="mt-1">Ders kapsamında ek puan talebiniz yoksa araştırmamız sizin için tamamlanmıştır. Doğrudan bu sayfayı/sekmeyi kapatabilirsiniz.</p>
+                </div>
+
+                <div class="action-footer">
+                    <button class="btn btn-primary" id="btn-debrief-submit">
+                        <span>Okudum, Ek Puan Formuna İlerle</span> <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 10. STUDENT CREDITS REGISTRATION (ANONYMOUS REDIRECT SPLIT) -->
+            <section id="view-student-info" class="card">
+                <h2 class="section-title mt-4">Ek Puan Kayıt Formu</h2>
+
+                <div class="info-box border-accent">
+                    <p><i class="fa-solid fa-circle-info text-accent"></i> <strong>Ek Puan Bilgisi:</strong> Bu
+                        çalışmaya katılımınız karşılığında <strong>Gelişim Psikolojisi 2</strong> dersiniz için
+                        <strong>2 puan ek puan</strong> tanımlanacaktır.</p>
+                    <p><i class="fa-solid fa-user-shield text-accent"></i> <strong>Kimlik Gizliliği Güvencesi:</strong>
+                    </p>
+                    <p>Bir önceki adımda verdiğiniz ahlaki kararlar ve cevaplar <strong>veri tabanına anonim olarak
+                            kaydedilmiştir</strong>. Akademik etik kuralları gereği, aşağıdaki forma gireceğiniz kimlik
+                        bilgileriniz (ad, soyad, öğrenci numarası) bir önceki verilerinizle <strong>asla
+                            ilişkilendirilmeyecek ve tamamen farklı bir listeye kaydedilecektir</strong>.</p>
+                    <p>Bu sayede araştırmacı sadece dersteki ek puan hakkı kazanan öğrenci listesini görebilecek, fakat
+                        hangi öğrencinin hangi cevabı verdiğini asla bilemeyecektir.</p>
+                </div>
+
+                <div class="form-grid mt-4">
+                    <div class="form-group">
+                        <label class="form-label required" for="stud-name">Adınız Soyadınız</label>
+                        <input type="text" id="stud-name" class="form-input" placeholder="Örn: Ahmet Yılmaz">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required" for="stud-id">Öğrenci Numaranız</label>
+                        <input type="text" id="stud-id" class="form-input" placeholder="Örn: 2021102030">
+                    </div>
+
+                    <input type="hidden" id="stud-course" value="Gelişim Psikolojisi 2">
+                </div>
+
+                <div class="action-footer mt-4">
+                    <button class="btn btn-accent" id="btn-student-submit">
+                        <span>Ek Puan Listesine Kaydol</span> <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 11. THANK YOU SCREEN -->
+            <section id="view-thanks" class="card text-center">
+                <div class="thanks-icon-wrapper">
+                    <div class="thanks-circle">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                </div>
+                <h2 class="section-title mt-4">Katılımınız ve Kaydınız Başarıyla Tamamlandı!</h2>
+                <p class="thanks-text">Tüm aşamaları başarıyla geçtiniz ve ek puan listesine kaydoldunuz. Araştırmamıza
+                    katkıda bulunduğunuz için çok teşekkür ederiz. Artık bu sekmeyi güvenle kapatabilirsiniz.</p>
+                <div class="thanks-footer-decor">
+                    <span class="dot-decor"></span>
+                    <span class="dot-decor active"></span>
+                    <span class="dot-decor"></span>
+                </div>
+            </section>
+
+            <!-- 12. ADMIN VIEW -->
+            <section id="view-admin" class="card">
+                <div class="admin-header-row">
+                    <h2 class="section-title text-gradient"><i class="fa-solid fa-lock"></i> Araştırmacı Yönetim Paneli
+                    </h2>
+                    <button class="btn btn-secondary btn-sm" id="btn-admin-logout">Çıkış Yap</button>
+                </div>
+
+                <div class="admin-grid">
+                    <!-- Stat Card 1 -->
+                    <div class="admin-stat-card">
+                        <span class="stat-title">Katılımcı Sayısı (Tarayıcıda Yedekli)</span>
+                        <span class="stat-value" id="admin-count-local">0</span>
+                    </div>
+
+                    <!-- Stat Card 2 -->
+                    <div class="admin-stat-card border-accent">
+                        <span class="stat-title">Anket Veri Gönderim Durumu</span>
+                        <span class="stat-value text-accent" id="admin-sheet-status">Yapılandırılmadı</span>
+                    </div>
+                </div>
+
+                <!-- Config Box -->
+                <div class="admin-config-section mt-4">
+                    <h3 class="config-title">Google Web App (API) Bağlantı Ayarları</h3>
+                    <p class="config-desc">Google E-Tablo scriptlerini yayına aldıktan sonra elde ettiğiniz Web App
+                        URL'lerini buraya yapıştırın. Bu ayarlar tarayıcınızda güvenle saklanacaktır.</p>
+
+                    <div class="form-grid mt-2">
+                        <div class="form-group full-width">
+                            <label class="form-label" for="config-survey-url">Araştırma Veri Tablosu API URL (Anket
+                                Cevapları)</label>
+                            <input type="url" id="config-survey-url" class="form-input code-font"
+                                placeholder="https://script.google.com/macros/s/.../exec">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="config-credits-url">Ek Puan Tablosu API URL (Öğrenci
+                                Bilgileri)</label>
+                            <input type="url" id="config-credits-url" class="form-input code-font"
+                                placeholder="https://script.google.com/macros/s/.../exec">
+                        </div>
+                    </div>
+                    <button class="btn btn-accent btn-sm mt-2" id="btn-save-config">Bağlantıları Kaydet</button>
+                </div>
+
+                <!-- QR Section -->
+                <div class="admin-qr-section mt-4">
+                    <h3 class="config-title">Katılım QR Kodu ve Çalışma Linki</h3>
+                    <div class="qr-content-wrapper">
+                        <div id="qr-code-container" class="qr-code-box">
+                            <!-- JS will dynamically draw QR here -->
+                        </div>
+                        <div class="qr-details">
+                            <p>Öğrencilerinizin formu kendi telefonlarından açması için aşağıdaki QR kodu yansıtabilir
+                                veya linki paylaşabilirsiniz:</p>
+                            <div class="copy-link-box mt-2">
+                                <input type="text" id="admin-app-url" class="form-input readonly-input" readonly
+                                    value="">
+                                <button class="btn btn-primary btn-sm" id="btn-copy-url"><i
+                                        class="fa-solid fa-copy"></i> Kopyala</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Local Data Table view -->
+                <div class="admin-data-section mt-4">
+                    <h3 class="config-title">Tarayıcıda Biriken Yedek Veriler (LocalStorage)</h3>
+                    <p class="config-desc mb-2">İnternet kesintisi durumunda katılımcıların verileri bu cihazda
+                        yedeklenir. Buradan yedek verileri doğrudan CSV olarak indirebilir veya sıfırlayabilirsiniz.</p>
+
+                    <div class="admin-actions-row">
+                        <button class="btn btn-primary" id="btn-download-survey-csv"><i
+                                class="fa-solid fa-download"></i> Anket Yedeklerini İndir (CSV)</button>
+                        <button class="btn btn-accent" id="btn-download-credits-csv"><i
+                                class="fa-solid fa-download"></i> Öğrenci Yedeklerini İndir (CSV)</button>
+                        <button class="btn btn-danger" id="btn-clear-local-data"><i class="fa-solid fa-trash-can"></i>
+                            Cihazı Sıfırla (Verileri Sil)</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>© 2026 Ahlaki Kararlar ve Üstbiliş Araştırması · Tüm hakları saklıdır.</p>
+            <p class="footer-secret" id="trigger-admin-login">Yönetici Girişi</p>
+        </footer>
+    </div>
+
+    <!-- Admin Password Modal -->
+    <div class="modal-overlay" id="admin-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Yönetici Girişi</h3>
+                <button class="modal-close" id="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="admin-pass">Yönetici Şifresi</label>
+                    <input type="password" id="admin-pass" class="form-input" placeholder="Şifrenizi giriniz...">
+                    <div class="error-text mt-1" id="admin-login-error"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-modal-cancel">İptal</button>
+                <button class="btn btn-primary" id="btn-modal-login">Giriş Yap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External QR Code library (EasyQRCodeJS) -->
+    <script src="https://cdn.jsdelivr.net/gh/ushelp/EasyQRCodeJS@1.1.2/dist/easy.qrcode.min.js"></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+
+</html>
