@@ -546,14 +546,63 @@ function initAppNavigation() {
         }
     });
 
-    setupSliderListener("demo-religiosity", "val-demo-rel", (val) => sessionData.demo_religiosity = parseInt(val));
-    setupSliderListener("demo-politics", "val-demo-pol", (val) => sessionData.demo_politics = parseInt(val));
+    setupSliderListener("demo-religiosity", "val-demo-rel", (val) => {
+        const optout = document.getElementById("demo-rel-optout");
+        if (!optout || !optout.checked) {
+            sessionData.demo_religiosity = parseInt(val);
+        }
+    });
+
+    setupSliderListener("demo-politics", "val-demo-pol", (val) => {
+        const optout = document.getElementById("demo-pol-optout");
+        if (!optout || !optout.checked) {
+            sessionData.demo_politics = parseInt(val);
+        }
+    });
+
+    const relOptout = document.getElementById("demo-rel-optout");
+    const relSlider = document.getElementById("demo-religiosity");
+    const valRel = document.getElementById("val-demo-rel");
+    if (relOptout && relSlider && valRel) {
+        relOptout.addEventListener("change", () => {
+            if (relOptout.checked) {
+                relSlider.disabled = true;
+                relSlider.closest(".slider-container").style.opacity = "0.4";
+                valRel.innerText = "-";
+                sessionData.demo_religiosity = 0;
+            } else {
+                relSlider.disabled = false;
+                relSlider.closest(".slider-container").style.opacity = "1";
+                valRel.innerText = relSlider.value;
+                sessionData.demo_religiosity = parseInt(relSlider.value);
+            }
+        });
+    }
+
+    const polOptout = document.getElementById("demo-pol-optout");
+    const polSlider = document.getElementById("demo-politics");
+    const valPol = document.getElementById("val-demo-pol");
+    if (polOptout && polSlider && valPol) {
+        polOptout.addEventListener("change", () => {
+            if (polOptout.checked) {
+                polSlider.disabled = true;
+                polSlider.closest(".slider-container").style.opacity = "0.4";
+                valPol.innerText = "-";
+                sessionData.demo_politics = 0;
+            } else {
+                polSlider.disabled = false;
+                polSlider.closest(".slider-container").style.opacity = "1";
+                valPol.innerText = polSlider.value;
+                sessionData.demo_politics = parseInt(polSlider.value);
+            }
+        });
+    }
 
     btnDemoNext.addEventListener("click", () => {
         if (validateDemographics()) {
             submitSurveyData();
         } else {
-            alert("Lütfen yaş, cinsiyet ve yapay zeka alışkanlıkları ile ilgili zorunlu alanları doldurunuz.");
+            alert("Lütfen yaş ve yapay zeka alışkanlıkları ile ilgili zorunlu alanları doldurunuz.");
         }
     });
 
@@ -744,12 +793,12 @@ function validateDemographics() {
     const aiUnderstandingChecked = document.querySelector("input[name='demo-ai-understanding']:checked");
     const believabilityChecked = document.querySelector("input[name='demo-ai-believability']:checked");
 
-    if (!ageVal || !genderVal || !sesVal || !aiUsedChecked || !aiPreferredVal || !durationVal || hoursVal === "" || isNaN(hoursVal) || !aiUnderstandingChecked || !believabilityChecked) {
+    if (!ageVal || !sesVal || !aiUsedChecked || !aiPreferredVal || !durationVal || hoursVal === "" || isNaN(hoursVal) || !aiUnderstandingChecked || !believabilityChecked) {
         return false;
     }
 
     sessionData.demo_age = parseInt(ageVal);
-    sessionData.demo_gender = parseInt(genderVal);
+    sessionData.demo_gender = genderVal ? parseInt(genderVal) : 0;
     sessionData.demo_ses = parseInt(sesVal);
     sessionData.demo_ai_used = parseInt(aiUsedChecked.value);
     sessionData.demo_ai_preferred = parseInt(aiPreferredVal);

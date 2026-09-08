@@ -687,9 +687,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label required" for="demo-gender">Cinsiyetiniz</label>
+                            <label class="form-label" for="demo-gender">Cinsiyetiniz <span style="font-weight: normal; color: var(--text-muted); font-size: 0.85rem;">(İsteğe bağlı)</span></label>
                             <select id="demo-gender" class="form-select">
-                                <option value="" disabled selected>Seçiniz</option>
+                                <option value="" selected>Seçiniz (İsteğe bağlı)</option>
                                 <option value="1">Kadın</option>
                                 <option value="2">Erkek</option>
                                 <option value="3">Belirtmek İstemiyorum</option>
@@ -737,8 +737,14 @@
                         </div>
 
                         <div class="form-group full-width">
-                            <label class="form-label">Kendinizi ne derece dindar olarak tanımlarsınız?</label>
-                            <div class="slider-labels-row">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                <label class="form-label" style="margin-bottom: 0;">Kendinizi ne derece dindar olarak tanımlarsınız? <span style="font-weight: normal; color: var(--text-muted); font-size: 0.85rem;">(İsteğe bağlı)</span></label>
+                                <label class="custom-checkbox-inline" style="font-size: 0.85rem; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 0.35rem;">
+                                    <input type="checkbox" id="demo-rel-optout">
+                                    <span>Belirtmek istemiyorum</span>
+                                </label>
+                            </div>
+                            <div class="slider-labels-row mt-2">
                                 <span>1 (Hiç dindar değilim)</span>
                                 <span>7 (Tamamen dindarım)</span>
                             </div>
@@ -750,8 +756,14 @@
                         </div>
 
                         <div class="form-group full-width">
-                            <label class="form-label">Siyasi/politik görüşünüz genel olarak nerededir?</label>
-                            <div class="slider-labels-row">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                <label class="form-label" style="margin-bottom: 0;">Siyasi/politik görüşünüz genel olarak nerededir? <span style="font-weight: normal; color: var(--text-muted); font-size: 0.85rem;">(İsteğe bağlı)</span></label>
+                                <label class="custom-checkbox-inline" style="font-size: 0.85rem; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 0.35rem;">
+                                    <input type="checkbox" id="demo-pol-optout">
+                                    <span>Belirtmek istemiyorum</span>
+                                </label>
+                            </div>
+                            <div class="slider-labels-row mt-2">
                                 <span>1 (Sol)</span>
                                 <span>7 (Sağ)</span>
                             </div>
