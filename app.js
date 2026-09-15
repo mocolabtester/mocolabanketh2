@@ -83,18 +83,12 @@ let sessionData = {
     // Dilemma 1 (Ücretsiz Yemek)
     d1_initial_choice: 0,
     d1_initial_rating: 0,
-    d1_initial_time: 0,
-    d1_q1_think: 50,
     d1_q2_conf: 50,
     d1_assigned_model: "",
     d1_chat_opened: 2,
-    d1_chat_start_time: 0,
-    d1_chat_duration: 0,
     d1_summary: "",
     d1_final_choice: 0,
     d1_final_rating: 0,
-    d1_final_time: 0,
-    d1_q1_think_final: 50,
     d1_q2_conf_final: 50,
     d1_q3_ai_influence: 50,
     d1_ai_error: 0,
@@ -102,18 +96,12 @@ let sessionData = {
     // Dilemma 2 (Yemek İsrafı / Market Hediye Kartı)
     d2_initial_choice: 0,
     d2_initial_rating: 0,
-    d2_initial_time: 0,
-    d2_q1_think: 50,
     d2_q2_conf: 50,
     d2_assigned_model: "",
     d2_chat_opened: 2,
-    d2_chat_start_time: 0,
-    d2_chat_duration: 0,
     d2_summary: "",
     d2_final_choice: 0,
     d2_final_rating: 0,
-    d2_final_time: 0,
-    d2_q1_think_final: 50,
     d2_q2_conf_final: 50,
     d2_q3_ai_influence: 50,
     d2_ai_error: 0,
@@ -128,9 +116,13 @@ let sessionData = {
     demo_ai_preferred: 0,
     demo_religiosity: 4,
     demo_politics: 4,
+    demo_trust_human: 50,
+    demo_trust_ai: 50,
     demo_ai_duration: 0,
     demo_ai_hours: 0,
     demo_ai_understanding: 4,
+    demo_source_trust: 4,
+    demo_source_future_intent: 4,
     demo_ai_believability: 4
 };
 
@@ -158,9 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // --- UI GÜNCELLEME VE NAVİGASYON ---
 function showStep(stepId) {
-    // Mevcut adımdan çıkarken süreyi hesapla (sadece ölçüm gerektiren aşamalar için)
-    recordTimingForStep(currentStep);
-
     // Aktif kartı gizle, yenisini göster
     document.querySelectorAll(".card").forEach(card => card.classList.remove("active"));
     const targetCard = document.getElementById(`view-${stepId}`);
@@ -169,7 +158,6 @@ function showStep(stepId) {
     }
 
     currentStep = stepId;
-    stepStartTime = Date.now(); // Yeni adım başlangıç zamanı
 
     // Progress Bar güncelle
     updateProgressBar(stepId);
@@ -205,19 +193,6 @@ function updateProgressBar(stepId) {
             dot.classList.add("completed");
         }
     });
-}
-
-function recordTimingForStep(step) {
-    const duration = Date.now() - stepStartTime;
-    if (step === "d1-init") {
-        sessionData.d1_initial_time = duration;
-    } else if (step === "d1-post") {
-        sessionData.d1_final_time = duration;
-    } else if (step === "d2-init") {
-        sessionData.d2_initial_time = duration;
-    } else if (step === "d2-post") {
-        sessionData.d2_final_time = duration;
-    }
 }
 
 // Gerekli tüm elementleri seçip tıklama olaylarını bağlar
@@ -261,7 +236,6 @@ function initAppNavigation() {
     d1RatingRadios.forEach(radio => radio.addEventListener("change", validateD1Init));
 
     // Sliders Real-time updates
-    setupSliderListener("d1-init-q1-think", "val-d1-init-q1", (val) => sessionData.d1_q1_think = parseInt(val));
     setupSliderListener("d1-init-q2-conf", "val-d1-init-q2", (val) => sessionData.d1_q2_conf = parseInt(val));
 
     btnD1InitNext.addEventListener("click", () => {
@@ -270,7 +244,7 @@ function initAppNavigation() {
         sessionData.d1_initial_rating = parseInt(document.querySelector("input[name='d1-init-rating']:checked").value);
         
         // KARŞIT ATAMA MANTIĞI (KARŞIT İLK):
-        // 1: Evet (İsrafı önle -> Karşıtı wstflh), 2: Hayır (Eşitliği koru -> Karşıtı unfrnsh)
+        // 1: Evet (İsrafı önle -> Karşıtı: wstflh), 2: Hayır (Eşitliği koru -> Karşıtı: unfrnsh)
         const chatLink1 = document.getElementById("btn-d1-chat-link");
         if (sessionData.d1_initial_choice === 1 || choiceVal === "1" || choiceVal === "Evet") {
             sessionData.d1_assigned_model = "wstflh";
@@ -291,7 +265,6 @@ function initAppNavigation() {
         linkD1Chat.addEventListener("click", () => {
             if (sessionData.d1_chat_opened !== 1) {
                 sessionData.d1_chat_opened = 1;
-                sessionData.d1_chat_start_time = Date.now();
                 btnD1AiDone.disabled = false;
             }
         });
@@ -299,9 +272,6 @@ function initAppNavigation() {
 
     if (btnD1AiDone) {
         btnD1AiDone.addEventListener("click", () => {
-            if (sessionData.d1_chat_start_time > 0) {
-                sessionData.d1_chat_duration = Date.now() - sessionData.d1_chat_start_time;
-            }
             showStep("d1-post");
         });
     }
@@ -343,7 +313,6 @@ function initAppNavigation() {
     d1PostRatingRadios.forEach(radio => radio.addEventListener("change", validateD1Post));
     d1AiErrorRadios.forEach(radio => radio.addEventListener("change", validateD1Post));
 
-    setupSliderListener("d1-post-q1-think", "val-d1-post-q1", (val) => sessionData.d1_q1_think_final = parseInt(val));
     setupSliderListener("d1-post-q2-conf", "val-d1-post-q2", (val) => sessionData.d1_q2_conf_final = parseInt(val));
     setupSliderListener("d1-post-q3-influence", "val-d1-post-q3", (val) => sessionData.d1_q3_ai_influence = parseInt(val));
 
@@ -399,7 +368,6 @@ function initAppNavigation() {
     d2ChoiceRadios.forEach(radio => radio.addEventListener("change", validateD2Init));
     d2RatingRadios.forEach(radio => radio.addEventListener("change", validateD2Init));
 
-    setupSliderListener("d2-init-q1-think", "val-d2-init-q1", (val) => sessionData.d2_q1_think = parseInt(val));
     setupSliderListener("d2-init-q2-conf", "val-d2-init-q2", (val) => sessionData.d2_q2_conf = parseInt(val));
 
     btnD2InitNext.addEventListener("click", () => {
@@ -429,7 +397,6 @@ function initAppNavigation() {
         linkD2Chat.addEventListener("click", () => {
             if (sessionData.d2_chat_opened !== 1) {
                 sessionData.d2_chat_opened = 1;
-                sessionData.d2_chat_start_time = Date.now();
                 btnD2AiDone.disabled = false;
             }
         });
@@ -437,9 +404,6 @@ function initAppNavigation() {
 
     if (btnD2AiDone) {
         btnD2AiDone.addEventListener("click", () => {
-            if (sessionData.d2_chat_start_time > 0) {
-                sessionData.d2_chat_duration = Date.now() - sessionData.d2_chat_start_time;
-            }
             showStep("d2-post");
         });
     }
@@ -481,7 +445,6 @@ function initAppNavigation() {
     d2PostRatingRadios.forEach(radio => radio.addEventListener("change", validateD2Post));
     d2AiErrorRadios.forEach(radio => radio.addEventListener("change", validateD2Post));
 
-    setupSliderListener("d2-post-q1-think", "val-d2-post-q1", (val) => sessionData.d2_q1_think_final = parseInt(val));
     setupSliderListener("d2-post-q2-conf", "val-d2-post-q2", (val) => sessionData.d2_q2_conf_final = parseInt(val));
     setupSliderListener("d2-post-q3-influence", "val-d2-post-q3", (val) => sessionData.d2_q3_ai_influence = parseInt(val));
 
@@ -559,6 +522,9 @@ function initAppNavigation() {
             sessionData.demo_politics = parseInt(val);
         }
     });
+
+    setupSliderListener("demo-trust-human", "val-demo-trust-human", (val) => sessionData.demo_trust_human = parseInt(val));
+    setupSliderListener("demo-trust-ai", "val-demo-trust-ai", (val) => sessionData.demo_trust_ai = parseInt(val));
 
     const relOptout = document.getElementById("demo-rel-optout");
     const relSlider = document.getElementById("demo-religiosity");
@@ -791,9 +757,11 @@ function validateDemographics() {
     const durationVal = document.getElementById("demo-ai-duration").value;
     const hoursVal = document.getElementById("demo-ai-hours").value.trim();
     const aiUnderstandingChecked = document.querySelector("input[name='demo-ai-understanding']:checked");
+    const sourceTrustChecked = document.querySelector("input[name='demo-source-trust']:checked");
+    const futureIntentChecked = document.querySelector("input[name='demo-source-future-intent']:checked");
     const believabilityChecked = document.querySelector("input[name='demo-ai-believability']:checked");
 
-    if (!ageVal || !sesVal || !aiUsedChecked || !aiPreferredVal || !durationVal || hoursVal === "" || isNaN(hoursVal) || !aiUnderstandingChecked || !believabilityChecked) {
+    if (!ageVal || !sesVal || !aiUsedChecked || !aiPreferredVal || !durationVal || hoursVal === "" || isNaN(hoursVal) || !aiUnderstandingChecked || !sourceTrustChecked || !futureIntentChecked || !believabilityChecked) {
         return false;
     }
 
@@ -805,6 +773,8 @@ function validateDemographics() {
     sessionData.demo_ai_duration = parseInt(durationVal);
     sessionData.demo_ai_hours = parseFloat(hoursVal);
     sessionData.demo_ai_understanding = parseInt(aiUnderstandingChecked.value);
+    sessionData.demo_source_trust = parseInt(sourceTrustChecked.value);
+    sessionData.demo_source_future_intent = parseInt(futureIntentChecked.value);
     sessionData.demo_ai_believability = parseInt(believabilityChecked.value);
 
     return true;
