@@ -38,7 +38,7 @@ const AI_LIT_ITEMS = [
     { id: "ai_lit_2", text: "Yapay zekâ uygulamalarını hayatımı kolaylaştırmak için kullanabilirim." },
     { id: "ai_lit_3", text: "Yapay zekâyı hedeflerime ulaşmak için etkili bir şekilde kullanabilirim." },
     { id: "ai_lit_4", text: "Yapay zekayı işlerimi kolaylaştıracak şekilde kullanabiliyorum." },
-    { id: "ai_lit_5", text: "Yapay zekâ ile verimli bir şekilde çalışebilirim." },
+    { id: "ai_lit_5", text: "Yapay zekâ ile verimli bir şekilde çalışabilirim." },
     { id: "ai_lit_6", text: "Yapay zekâ ile etkili bir şekilde iletişim kurabiliyorum." },
     { id: "ai_lit_7", text: "Yapay zekâ konusunun en önemli kavramlarını biliyorum." },
     { id: "ai_lit_8", text: "Yapay zekânın tanımını biliyorum." },
@@ -585,6 +585,13 @@ function initAppNavigation() {
     if (btnStudentSubmit) {
         btnStudentSubmit.addEventListener("click", () => {
             submitStudentInfo();
+        });
+    }
+
+    const btnStudentSkip = document.getElementById("btn-student-skip");
+    if (btnStudentSkip) {
+        btnStudentSkip.addEventListener("click", () => {
+            showStep("thanks");
         });
     }
 

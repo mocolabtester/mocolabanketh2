@@ -919,6 +919,12 @@
             <section id="view-student-info" class="card">
                 <h2 class="section-title mt-4">Ek Puan Kayıt Formu</h2>
 
+                <div class="info-box border-warning mb-4" style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b;">
+                    <p style="color: #f59e0b;"><i class="fa-solid fa-circle-exclamation"></i> <strong>Ek Puan Talebi Olmayan Katılımcılar İçin Bilgilendirme:</strong></p>
+                    <p class="mt-1">Araştırma ve anket cevaplarınız bir önceki adımda zaten <strong>güvenli ve anonim olarak sisteme kaydedilmiştir</strong>.</p>
+                    <p class="mt-1">Eğer herhangi bir ders kapsamında ek puan talebiniz yoksa veya araştırmamıza gönüllü olarak katıldıysanız bu formu doldurmanıza gerek yoktur. Sayfayı doğrudan kapatabilir veya aşağıdaki <strong>"Ek Puan Talebim Yok"</strong> butonuna tıklayarak işlemi tamamlayabilirsiniz.</p>
+                </div>
+
                 <div class="info-box border-accent">
                     <p><i class="fa-solid fa-circle-info text-accent"></i> <strong>Ek Puan Bilgisi:</strong> Bu
                         çalışmaya katılımınız karşılığında <strong>Gelişim Psikolojisi 2</strong> dersiniz için
@@ -947,7 +953,10 @@
                     <input type="hidden" id="stud-course" value="Gelişim Psikolojisi 2">
                 </div>
 
-                <div class="action-footer mt-4">
+                <div class="action-footer mt-4" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" id="btn-student-skip" type="button">
+                        <span>Ek Puan Talebim Yok</span>
+                    </button>
                     <button class="btn btn-accent" id="btn-student-submit">
                         <span>Ek Puan Listesine Kaydol</span> <i class="fa-solid fa-user-plus"></i>
                     </button>
@@ -961,9 +970,8 @@
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                 </div>
-                <h2 class="section-title mt-4">Katılımınız ve Kaydınız Başarıyla Tamamlandı!</h2>
-                <p class="thanks-text">Tüm aşamaları başarıyla geçtiniz ve ek puan listesine kaydoldunuz. Araştırmamıza
-                    katkıda bulunduğunuz için çok teşekkür ederiz. Artık bu sekmeyi güvenle kapatabilirsiniz.</p>
+                <h2 class="section-title mt-4">Katılımınız Başarıyla Tamamlandı!</h2>
+                <p class="thanks-text">Araştırmamıza sağladığınız değerli katkı için çok teşekkür ederiz. Artık bu sekmeyi güvenle kapatabilirsiniz.</p>
                 <div class="thanks-footer-decor">
                     <span class="dot-decor"></span>
                     <span class="dot-decor active"></span>
