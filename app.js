@@ -146,6 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (urlParams.has('admin')) {
         showAdminModal();
     }
+
+    // Aktif oturum varsa geri yükle (iPhone/Safari sekme yenilenme koruması)
+    restoreSurveySession();
 });
 
 // --- UI GÜNCELLEME VE NAVİGASYON ---
@@ -164,6 +167,9 @@ function showStep(stepId) {
     
     // Sayfayı üste kaydır
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Sayfa durumunu hafızaya kaydet (iPhone/Safari koruması)
+    saveSurveySession();
 }
 
 function updateProgressBar(stepId) {
@@ -1080,5 +1086,139 @@ function triggerFileDownload(content, filename) {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }
+}
+
+// --- SESSION STORAGE VE SAYFA KURTARMA (iOS / iPhone Koruma) ---
+function saveSurveySession() {
+    try {
+        if (currentStep === "welcome" || currentStep === "thanks") {
+            sessionStorage.removeItem("active_survey_step");
+            sessionStorage.removeItem("active_survey_data");
+            localStorage.removeItem("active_survey_backup");
+            return;
+        }
+        sessionStorage.setItem("active_survey_step", currentStep);
+        sessionStorage.setItem("active_survey_data", JSON.stringify(sessionData));
+        
+        // iOS agresif sekme temizliğine karşı 3 saatlik localStorage yedeği
+        const backup = {
+            step: currentStep,
+            data: sessionData,
+            time: Date.now()
+        };
+        localStorage.setItem("active_survey_backup", JSON.stringify(backup));
+    } catch (e) {
+        console.warn("Storage save error:", e);
+    }
+}
+
+function restoreSurveySession() {
+    try {
+        let savedStep = sessionStorage.getItem("active_survey_step");
+        let savedData = sessionStorage.getItem("active_survey_data");
+        
+        if (!savedStep || !savedData) {
+            const backupStr = localStorage.getItem("active_survey_backup");
+            if (backupStr) {
+                const backup = JSON.parse(backupStr);
+                if (Date.now() - backup.time < 3 * 60 * 60 * 1000) {
+                    savedStep = backup.step;
+                    savedData = JSON.stringify(backup.data);
+                }
+            }
+        }
+
+        if (savedStep && savedData && savedStep !== "welcome" && savedStep !== "thanks") {
+            const parsed = JSON.parse(savedData);
+            Object.assign(sessionData, parsed);
+
+            // D1 Chat linki ve butonları
+            if (sessionData.d1_assigned_model) {
+                const chatLink1 = document.getElementById("btn-d1-chat-link");
+                if (chatLink1) {
+                    chatLink1.href = `https://mocolabtester.github.io/${sessionData.d1_assigned_model}/`;
+                    chatLink1.classList.remove("disabled-link");
+                }
+                const btnD1AiDone = document.getElementById("btn-d1-ai-done");
+                if (btnD1AiDone && sessionData.d1_chat_opened === 1) {
+                    btnD1AiDone.disabled = false;
+                }
+                const readyCheck1 = document.getElementById("d1-ai-ready-check");
+                if (readyCheck1) readyCheck1.checked = true;
+            }
+
+            // D2 Chat linki ve butonları
+            if (sessionData.d2_assigned_model) {
+                const chatLink2 = document.getElementById("btn-d2-chat-link");
+                if (chatLink2) {
+                    chatLink2.href = `https://mocolabtester.github.io/${sessionData.d2_assigned_model}/`;
+                    chatLink2.classList.remove("disabled-link");
+                }
+                const btnD2AiDone = document.getElementById("btn-d2-ai-done");
+                if (btnD2AiDone && sessionData.d2_chat_opened === 1) {
+                    btnD2AiDone.disabled = false;
+                }
+                const readyCheck2 = document.getElementById("d2-ai-ready-check");
+                if (readyCheck2) readyCheck2.checked = true;
+            }
+
+            // Form alanlarını geri yükle
+            restoreInputValues();
+
+            // Adımı göster
+            showStep(savedStep);
+            return true;
+        }
+    } catch (e) {
+        console.warn("Storage restore error:", e);
+    }
+    return false;
+}
+
+function restoreInputValues() {
+    try {
+        if (sessionData.d1_initial_choice) {
+            const r = document.querySelector(`input[name='d1-init-choice'][value='${sessionData.d1_initial_choice}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d1_initial_rating) {
+            const r = document.querySelector(`input[name='d1-init-rating'][value='${sessionData.d1_initial_rating}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d1_final_choice) {
+            const r = document.querySelector(`input[name='d1-post-choice'][value='${sessionData.d1_final_choice}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d1_final_rating) {
+            const r = document.querySelector(`input[name='d1-post-rating'][value='${sessionData.d1_final_rating}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d1_summary) {
+            const ta = document.getElementById("d1-summary-text");
+            if (ta) ta.value = sessionData.d1_summary;
+        }
+        if (sessionData.d2_initial_choice) {
+            const r = document.querySelector(`input[name='d2-init-choice'][value='${sessionData.d2_initial_choice}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d2_initial_rating) {
+            const r = document.querySelector(`input[name='d2-init-rating'][value='${sessionData.d2_initial_rating}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d2_final_choice) {
+            const r = document.querySelector(`input[name='d2-post-choice'][value='${sessionData.d2_final_choice}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d2_final_rating) {
+            const r = document.querySelector(`input[name='d2-post-rating'][value='${sessionData.d2_final_rating}']`);
+            if (r) r.checked = true;
+        }
+        if (sessionData.d2_summary) {
+            const ta = document.getElementById("d2-summary-text");
+            if (ta) ta.value = sessionData.d2_summary;
+        }
+    } catch (e) {
+        console.warn("Input restore error:", e);
     }
 }
