@@ -1670,3 +1670,162 @@ body {
     border-color: #ef4444 !important;
     box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25) !important;
 }
+
+
+/* ==========================================================================
+   GÖMÜLÜ SOHBET MODAL STÝLLERÝ (EMBEDDED CHAT MODAL)
+   ========================================================================== */
+.chat-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInModal 0.25s ease-out forwards;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.chat-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 15, 29, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.chat-modal-container {
+    position: relative;
+    z-index: 10001;
+    width: 100%;
+    max-width: 680px;
+    height: 92vh;
+    max-height: 850px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(59, 130, 246, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpModal {
+    from {
+        transform: translateY(30px) scale(0.98);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.chat-modal-header {
+    height: 56px;
+    padding: 0 1.25rem;
+    background: #1e293b;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.chat-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f8fafc;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.chat-modal-close-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.chat-modal-close-btn:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #93c5fd;
+}
+
+.chat-modal-body {
+    flex: 1;
+    position: relative;
+    background: #020617;
+    overflow: hidden;
+}
+
+.chat-modal-body iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.chat-iframe-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #020617;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.chat-iframe-loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.chat-modal-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spinModal 0.8s linear infinite;
+}
+
+@keyframes spinModal {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .chat-modal-container {
+        max-width: 100%;
+        height: 100%;
+        height: 100dvh;
+        max-height: none;
+        border-radius: 0;
+        border: none;
+    }
+    
+    .chat-modal-header {
+        padding-top: env(safe-area-inset-top, 0);
+        height: calc(56px + env(safe-area-inset-top, 0));
+    }
+}

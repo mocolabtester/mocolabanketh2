@@ -174,7 +174,7 @@
                     <ol style="margin-left: 1.25rem; display: flex; flex-direction: column; gap: 10px;">
                         <li><strong style="color: #ffffff;">Görüşünüzü İletin:</strong> Senaryoyu baştan anlatmanıza gerek yoktur; sistem hangi senaryoda olduğunuzu bilmektedir. Sadece kendi kararınızı/gerekçenizi yazabilir veya araştırma asistanının ne düşündüğünü sorabilirsiniz.</li>
                         <li><strong style="color: #ffffff;">Düşüncelerinizi İletin:</strong> Gelen cevaba karşılık kendi görüşlerinizi belirtebilir, gerekçelerinizi paylaşabilir veya aklınıza takılanları sorabilirsiniz.</li>
-                        <li><strong style="color: #ffffff;">Görüşmenin Sona Ermesi:</strong> Görüşme, asistandan 2 değerlendirme aldıktan sonra otomatik olarak sona erecek ve mesajlaşma kilitlenecektir. Görüşme tamamlandığında bu sekmeye dönüp <strong>"Tartışmayı Tamamladım"</strong> butonuna tıklayınız.</li>
+                        <li><strong style="color: #ffffff;">Görüşmenin Sona Ermesi:</strong> Görüşme, asistandan 2 değerlendirme aldıktan sonra otomatik olarak sona erecek ve mesajlaşma kilitlenecektir. Görüşme tamamlandığında pencereyi kapatıp <strong>"Tartışmayı Tamamladım"</strong> butonuna tıklayarak araştırmaya devam ediniz.</li>
                         <li>Sohbeti başlatabilmek için önce aşağıdaki hazırlık onay kutusunu işaretlemeniz gerekmektedir.</li>
                     </ol>
                 </div>
@@ -190,7 +190,7 @@
 
                 <div class="action-footer mt-4">
                     <button class="btn btn-secondary" id="btn-d1-ai-back">Geri Dön</button>
-                    <a href="https://chatgpt.com/" target="_blank" class="btn btn-accent disabled-link"
+                    <a href="https://chatgpt.com/" class="btn btn-accent disabled-link"
                         id="btn-d1-chat-link">Sohbeti başlat</a>
                     <button class="btn btn-primary" id="btn-d1-ai-done" disabled>
                         <span>Tartışmayı Tamamladım</span> <i class="fa-solid fa-check"></i>
@@ -423,7 +423,7 @@
                     <ol style="margin-left: 1.25rem; display: flex; flex-direction: column; gap: 10px;">
                         <li><strong style="color: #ffffff;">Görüşünüzü İletin:</strong> Senaryoyu baştan anlatmanıza gerek yoktur; sistem hangi senaryoda olduğunuzu bilmektedir. Sadece kendi kararınızı/gerekçenizi yazabilir veya araştırma asistanının ne düşündüğünü sorabilirsiniz.</li>
                         <li><strong style="color: #ffffff;">Düşüncelerinizi İletin:</strong> Gelen cevaba karşılık kendi görüşlerinizi belirtebilir, gerekçelerinizi paylaşabilir veya aklınıza takılanları sorabilirsiniz.</li>
-                        <li><strong style="color: #ffffff;">Görüşmenin Sona Ermesi:</strong> Görüşme, asistandan 2 değerlendirme aldıktan sonra otomatik olarak sona erecek ve mesajlaşma kilitlenecektir. Görüşme tamamlandığında bu sekmeye dönüp <strong>"Tartışmayı Tamamladım"</strong> butonuna tıklayınız.</li>
+                        <li><strong style="color: #ffffff;">Görüşmenin Sona Ermesi:</strong> Görüşme, asistandan 2 değerlendirme aldıktan sonra otomatik olarak sona erecek ve mesajlaşma kilitlenecektir. Görüşme tamamlandığında pencereyi kapatıp <strong>"Tartışmayı Tamamladım"</strong> butonuna tıklayarak araştırmaya devam ediniz.</li>
                         <li>Sohbeti başlatabilmek için önce aşağıdaki hazırlık onay kutusunu işaretlemeniz gerekmektedir.</li>
                     </ol>
                 </div>
@@ -439,7 +439,7 @@
 
                 <div class="action-footer mt-4">
                     <button class="btn btn-secondary" id="btn-d2-ai-back">Geri Dön</button>
-                    <a href="https://copilot.microsoft.com/" target="_blank" class="btn btn-accent disabled-link"
+                    <a href="https://copilot.microsoft.com/" class="btn btn-accent disabled-link"
                         id="btn-d2-chat-link">Sohbeti başlat</a>
                     <button class="btn btn-primary" id="btn-d2-ai-done" disabled>
                         <span>Tartışmayı Tamamladım</span> <i class="fa-solid fa-check"></i>
@@ -1086,6 +1086,29 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" id="btn-modal-cancel">İptal</button>
                 <button class="btn btn-primary" id="btn-modal-login">Giriş Yap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gömülü Sohbet Modalı -->
+    <div id="chat-modal" class="chat-modal" style="display: none;">
+        <div class="chat-modal-backdrop" id="chat-modal-backdrop"></div>
+        <div class="chat-modal-container">
+            <div class="chat-modal-header">
+                <div class="chat-modal-title">
+                    <span id="chat-modal-title-text">Yapay Zeka Asistanı</span>
+                </div>
+                <button type="button" class="chat-modal-close-btn" id="btn-close-chat-modal" title="Pencereyi Kapat / Ankete Dön">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Ankete Dön</span>
+                </button>
+            </div>
+            <div class="chat-modal-body">
+                <div id="chat-iframe-loading" class="chat-iframe-loading">
+                    <div class="chat-modal-spinner"></div>
+                    <p>Sohbet asistanına bağlanılıyor, lütfen bekleyiniz...</p>
+                </div>
+                <iframe id="chat-iframe" src="" frameborder="0" allow="clipboard-write; fullscreen"></iframe>
             </div>
         </div>
     </div>

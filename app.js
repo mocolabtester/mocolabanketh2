@@ -86,6 +86,7 @@ let sessionData = {
     d1_q2_conf: 50,
     d1_assigned_model: "",
     d1_chat_opened: 2,
+    d1_chat_transcript: "",
     d1_summary: "",
     d1_final_choice: 0,
     d1_final_rating: 0,
@@ -99,6 +100,7 @@ let sessionData = {
     d2_q2_conf: 50,
     d2_assigned_model: "",
     d2_chat_opened: 2,
+    d2_chat_transcript: "",
     d2_summary: "",
     d2_final_choice: 0,
     d2_final_rating: 0,
@@ -149,6 +151,78 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Aktif oturum varsa geri yükle (iPhone/Safari sekme yenilenme koruması)
     restoreSurveySession();
+});
+
+// --- GÖMÜLÜ SOHBET MODAL YÖNETİMİ ---
+function openChatModal(url, title = "Yapay Zeka Asistanı") {
+    const modal = document.getElementById("chat-modal");
+    const iframe = document.getElementById("chat-iframe");
+    const loading = document.getElementById("chat-iframe-loading");
+    const titleText = document.getElementById("chat-modal-title-text");
+
+    if (!modal || !iframe) return;
+
+    if (titleText) titleText.textContent = title;
+
+    if (iframe.src !== url) {
+        if (loading) loading.classList.remove("hidden");
+        iframe.src = url;
+        iframe.onload = () => {
+            if (loading) loading.classList.add("hidden");
+        };
+    } else {
+        if (loading) loading.classList.add("hidden");
+    }
+
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function closeChatModal() {
+    const modal = document.getElementById("chat-modal");
+    if (!modal) return;
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+}
+
+// Sohbet penceresinden gelen olayları (tamamlanma, kapatma, transkript) dinle
+window.addEventListener("message", (event) => {
+    if (!event.data || typeof event.data !== "object") return;
+
+    if (event.data.type === "CHAT_COMPLETED") {
+        const dilemma = String(event.data.dilemma || "1");
+        const history = event.data.history || [];
+        
+        let transcript = "";
+        if (Array.isArray(history)) {
+            transcript = history.map((item) => {
+                const role = item.role === "user" ? "Katılımcı" : "Yapay Zeka / Asistan";
+                const text = (item.parts && item.parts[0]) ? item.parts[0].text : "";
+                return `[${role}]: ${text}`;
+            }).join("\n\n");
+        }
+
+        console.log(`%c[SOHBET KAYDI ALINDI - İkilem ${dilemma}]`, "background: #10b981; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;");
+
+        if (dilemma === "1") {
+            sessionData.d1_chat_transcript = transcript;
+            const btnD1AiDone = document.getElementById("btn-d1-ai-done");
+            if (btnD1AiDone) {
+                btnD1AiDone.disabled = false;
+                btnD1AiDone.classList.add("pulse-glow");
+            }
+        } else if (dilemma === "2") {
+            sessionData.d2_chat_transcript = transcript;
+            const btnD2AiDone = document.getElementById("btn-d2-ai-done");
+            if (btnD2AiDone) {
+                btnD2AiDone.disabled = false;
+                btnD2AiDone.classList.add("pulse-glow");
+            }
+        }
+        saveSurveySession();
+    } else if (event.data.type === "CLOSE_MODAL") {
+        closeChatModal();
+    }
 });
 
 // --- UI GÜNCELLEME VE NAVİGASYON ---
@@ -267,17 +341,30 @@ function initAppNavigation() {
     const linkD1Chat = document.getElementById("btn-d1-chat-link");
     const btnD1AiDone = document.getElementById("btn-d1-ai-done");
 
+    const btnCloseChatModal = document.getElementById("btn-close-chat-modal");
+    const backdropChatModal = document.getElementById("chat-modal-backdrop");
+
+    if (btnCloseChatModal) {
+        btnCloseChatModal.addEventListener("click", closeChatModal);
+    }
+    if (backdropChatModal) {
+        backdropChatModal.addEventListener("click", closeChatModal);
+    }
+
     if (linkD1Chat && btnD1AiDone) {
-        linkD1Chat.addEventListener("click", () => {
-            if (sessionData.d1_chat_opened !== 1) {
-                sessionData.d1_chat_opened = 1;
-                btnD1AiDone.disabled = false;
-            }
+        linkD1Chat.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (linkD1Chat.classList.contains("disabled-link")) return;
+            sessionData.d1_chat_opened = 1;
+            btnD1AiDone.disabled = false;
+            saveSurveySession();
+            openChatModal(linkD1Chat.href, "Araştırma Asistanı (1. Görüşme)");
         });
     }
 
     if (btnD1AiDone) {
         btnD1AiDone.addEventListener("click", () => {
+            closeChatModal();
             showStep("d1-post");
         });
     }
@@ -400,16 +487,19 @@ function initAppNavigation() {
     const btnD2AiDone = document.getElementById("btn-d2-ai-done");
 
     if (linkD2Chat && btnD2AiDone) {
-        linkD2Chat.addEventListener("click", () => {
-            if (sessionData.d2_chat_opened !== 1) {
-                sessionData.d2_chat_opened = 1;
-                btnD2AiDone.disabled = false;
-            }
+        linkD2Chat.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (linkD2Chat.classList.contains("disabled-link")) return;
+            sessionData.d2_chat_opened = 1;
+            btnD2AiDone.disabled = false;
+            saveSurveySession();
+            openChatModal(linkD2Chat.href, "Araştırma Asistanı (2. Görüşme)");
         });
     }
 
     if (btnD2AiDone) {
         btnD2AiDone.addEventListener("click", () => {
+            closeChatModal();
             showStep("d2-post");
         });
     }
