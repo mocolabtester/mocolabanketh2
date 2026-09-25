@@ -74,9 +74,6 @@ var CHAT_HEADERS = [
   "siralama",
   "ikilem",
   "atanan_model",
-  "ilk_karar",
-  "son_karar",
-  "etki_derecesi",
   "katilimci_ozeti",
   "sohbet_transkripti"
 ];
@@ -154,9 +151,6 @@ function doPost(e) {
         data.siralama || "",
         "İkilem 1 (Yemek)",
         data.d1_assigned_model || "",
-        data.d1_initial_choice || "",
-        data.d1_final_choice || "",
-        data.d1_q3_ai_influence || "",
         data.d1_summary || "",
         data.d1_chat_transcript
       ]);
@@ -170,9 +164,6 @@ function doPost(e) {
         data.siralama || "",
         "İkilem 2 (Hediye Kartı)",
         data.d2_assigned_model || "",
-        data.d2_initial_choice || "",
-        data.d2_final_choice || "",
-        data.d2_q3_ai_influence || "",
         data.d2_summary || "",
         data.d2_chat_transcript
       ]);

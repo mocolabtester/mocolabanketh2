@@ -196,7 +196,7 @@ window.addEventListener("message", (event) => {
         let transcript = "";
         if (Array.isArray(history)) {
             transcript = history.map((item) => {
-                const role = item.role === "user" ? "Katılımcı" : "Yapay Zeka / Asistan";
+                const role = item.role === "user" ? "Katılımcı" : (sessionData.muhatap === 2 ? "Araştırma Asistanı" : "Yapay Zeka");
                 const text = (item.parts && item.parts[0]) ? item.parts[0].text : "";
                 return `[${role}]: ${text}`;
             }).join("\n\n");
@@ -205,14 +205,18 @@ window.addEventListener("message", (event) => {
         console.log(`%c[SOHBET KAYDI ALINDI - İkilem ${dilemma}]`, "background: #10b981; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold;");
 
         if (dilemma === "1") {
-            sessionData.d1_chat_transcript = transcript;
+            if (transcript.trim() !== "") {
+                sessionData.d1_chat_transcript = transcript;
+            }
             const btnD1AiDone = document.getElementById("btn-d1-ai-done");
             if (btnD1AiDone) {
                 btnD1AiDone.disabled = false;
                 btnD1AiDone.classList.add("pulse-glow");
             }
         } else if (dilemma === "2") {
-            sessionData.d2_chat_transcript = transcript;
+            if (transcript.trim() !== "") {
+                sessionData.d2_chat_transcript = transcript;
+            }
             const btnD2AiDone = document.getElementById("btn-d2-ai-done");
             if (btnD2AiDone) {
                 btnD2AiDone.disabled = false;
