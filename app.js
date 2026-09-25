@@ -254,10 +254,10 @@ function initAppNavigation() {
         const chatLink1 = document.getElementById("btn-d1-chat-link");
         if (sessionData.d1_initial_choice === 1 || choiceVal === "1" || choiceVal === "Evet") {
             sessionData.d1_assigned_model = "wstflh";
-            if (chatLink1) chatLink1.href = "https://mocolabtester.github.io/wstflh/";
+            if (chatLink1) chatLink1.href = "https://mocolabtester.github.io/wstflh/?d=1";
         } else {
             sessionData.d1_assigned_model = "unfrnsh";
-            if (chatLink1) chatLink1.href = "https://mocolabtester.github.io/unfrnsh/";
+            if (chatLink1) chatLink1.href = "https://mocolabtester.github.io/unfrnsh/?d=1";
         }
 
         showStep("d1-ai");
@@ -386,10 +386,10 @@ function initAppNavigation() {
         const chatLink2 = document.getElementById("btn-d2-chat-link");
         if (sessionData.d2_initial_choice === 1 || choiceVal === "1" || choiceVal === "Evet") {
             sessionData.d2_assigned_model = "unfrnsh";
-            if (chatLink2) chatLink2.href = "https://mocolabtester.github.io/unfrnsh/";
+            if (chatLink2) chatLink2.href = "https://mocolabtester.github.io/unfrnsh/?d=2";
         } else {
             sessionData.d2_assigned_model = "wstflh";
-            if (chatLink2) chatLink2.href = "https://mocolabtester.github.io/wstflh/";
+            if (chatLink2) chatLink2.href = "https://mocolabtester.github.io/wstflh/?d=2";
         }
 
         showStep("d2-ai");
@@ -1237,7 +1237,7 @@ function restoreSurveySession() {
             if (sessionData.d1_assigned_model) {
                 const chatLink1 = document.getElementById("btn-d1-chat-link");
                 if (chatLink1) {
-                    chatLink1.href = `https://mocolabtester.github.io/${sessionData.d1_assigned_model}/`;
+                    chatLink1.href = `https://mocolabtester.github.io/${sessionData.d1_assigned_model}/?d=1`;
                     chatLink1.classList.remove("disabled-link");
                 }
                 const btnD1AiDone = document.getElementById("btn-d1-ai-done");
@@ -1252,7 +1252,7 @@ function restoreSurveySession() {
             if (sessionData.d2_assigned_model) {
                 const chatLink2 = document.getElementById("btn-d2-chat-link");
                 if (chatLink2) {
-                    chatLink2.href = `https://mocolabtester.github.io/${sessionData.d2_assigned_model}/`;
+                    chatLink2.href = `https://mocolabtester.github.io/${sessionData.d2_assigned_model}/?d=2`;
                     chatLink2.classList.remove("disabled-link");
                 }
                 const btnD2AiDone = document.getElementById("btn-d2-ai-done");
