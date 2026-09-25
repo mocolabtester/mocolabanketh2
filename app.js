@@ -573,8 +573,6 @@ function initAppNavigation() {
     btnDemoNext.addEventListener("click", () => {
         if (validateDemographics()) {
             submitSurveyData();
-        } else {
-            alert("Lütfen yaş ve yapay zeka alışkanlıkları ile ilgili zorunlu alanları doldurunuz.");
         }
     });
 
@@ -762,29 +760,131 @@ function validateAiLitAnswers() {
 }
 
 function validateDemographics() {
-    const ageVal = document.getElementById("demo-age").value.trim();
-    const genderVal = document.getElementById("demo-gender").value;
-    const sesVal = document.getElementById("demo-ses").value;
-    const aiUsedChecked = document.querySelector("input[name='demo-ai-used']:checked");
-    const aiPreferredVal = document.getElementById("demo-ai-preferred").value;
-    const durationVal = document.getElementById("demo-ai-duration").value;
-    const hoursVal = document.getElementById("demo-ai-hours").value.trim();
-    const aiUnderstandingChecked = document.querySelector("input[name='demo-ai-understanding']:checked");
-    const sourceTrustChecked = document.querySelector("input[name='demo-source-trust']:checked");
-    const futureIntentChecked = document.querySelector("input[name='demo-source-future-intent']:checked");
-    const believabilityChecked = document.querySelector("input[name='demo-ai-believability']:checked");
+    // Önceki hata vurgularını temizle
+    document.querySelectorAll(".has-error").forEach(el => el.classList.remove("has-error"));
+    document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
 
-    if (!ageVal || !sesVal || !aiUsedChecked || !aiPreferredVal || !durationVal || hoursVal === "" || isNaN(hoursVal) || !aiUnderstandingChecked || !sourceTrustChecked || !futureIntentChecked || !believabilityChecked) {
+    const errors = [];
+    let firstErrorElement = null;
+
+    function addError(element, container, message) {
+        if (element) element.classList.add("input-error");
+        if (container) container.classList.add("has-error");
+        if (!firstErrorElement) firstErrorElement = element || container;
+        errors.push(message);
+    }
+
+    // 1. Yaş
+    const ageInput = document.getElementById("demo-age");
+    const ageVal = ageInput.value.trim();
+    const ageNum = parseInt(ageVal, 10);
+    if (!ageVal || isNaN(ageNum) || ageNum < 15 || ageNum > 100) {
+        addError(ageInput, ageInput.closest(".form-group"), "Lütfen yaşınızı geçerli bir sayı olarak giriniz (15-100).");
+    }
+
+    // Cinsiyet (isteğe bağlı)
+    const genderVal = document.getElementById("demo-gender").value;
+
+    // 2. Sosyo-ekonomik Durum
+    const sesSelect = document.getElementById("demo-ses");
+    const sesVal = sesSelect.value;
+    if (!sesVal) {
+        addError(sesSelect, sesSelect.closest(".form-group"), "Lütfen sosyo-ekonomik durumunuzu seçiniz.");
+    }
+
+    // 3. Yapay Zeka Kullandınız mı?
+    const aiUsedChecked = document.querySelector("input[name='demo-ai-used']:checked");
+    const aiUsedGroup = document.querySelector("input[name='demo-ai-used']") ? document.querySelector("input[name='demo-ai-used']").closest(".form-group") : null;
+    if (!aiUsedChecked) {
+        addError(null, aiUsedGroup, "Lütfen daha önce yapay zeka kullanıp kullanmadığınızı belirtiniz.");
+    }
+
+    const doesNotUseAI = aiUsedChecked && aiUsedChecked.value === "2"; // Hayır
+
+    // 4. En sık kullanılan araç
+    const aiPrefSelect = document.getElementById("demo-ai-preferred");
+    let aiPreferredVal = aiPrefSelect.value;
+    if (!aiPreferredVal) {
+        if (doesNotUseAI) {
+            aiPreferredVal = "5"; // 'Yapay Zeka Kullanmıyorum' otomatik seç
+            aiPrefSelect.value = "5";
+        } else {
+            addError(aiPrefSelect, aiPrefSelect.closest(".form-group"), "Lütfen en sık kullandığınız yapay zeka aracını seçiniz.");
+        }
+    }
+
+    // 5. Kullanım süresi
+    const durationSelect = document.getElementById("demo-ai-duration");
+    let durationVal = durationSelect.value;
+    if (!durationVal) {
+        if (doesNotUseAI) {
+            durationVal = "1"; // 'Hiç kullanmadım' otomatik seç
+            durationSelect.value = "1";
+        } else {
+            addError(durationSelect, durationSelect.closest(".form-group"), "Lütfen ne kadar süredir yapay zeka kullandığınızı seçiniz.");
+        }
+    }
+
+    // 6. Haftalık kullanım saati
+    const hoursInput = document.getElementById("demo-ai-hours");
+    let hoursRaw = hoursInput.value.trim().replace(',', '.');
+    if (hoursRaw === "" && (doesNotUseAI || durationVal === "1")) {
+        hoursRaw = "0";
+        hoursInput.value = "0";
+    }
+    const hoursNum = parseFloat(hoursRaw);
+    if (hoursRaw === "" || isNaN(hoursNum) || hoursNum < 0) {
+        addError(hoursInput, hoursInput.closest(".form-group"), "Lütfen haftalık yapay zeka kullanım saatinizi giriniz (kullanmıyorsanız 0 yazınız).");
+    }
+
+    // 7. Cevapların açıklığı (1-7)
+    const aiUnderstandingChecked = document.querySelector("input[name='demo-ai-understanding']:checked");
+    const aiUndGroup = document.querySelector("input[name='demo-ai-understanding']") ? document.querySelector("input[name='demo-ai-understanding']").closest(".form-group") : null;
+    if (!aiUnderstandingChecked) {
+        addError(null, aiUndGroup, "Lütfen 'Cevapların açıklığı ve anlaşılırlığı' sorusunu yanıtlayınız.");
+    }
+
+    // 8. Kaynağa güven (1-7)
+    const sourceTrustChecked = document.querySelector("input[name='demo-source-trust']:checked");
+    const srcTrustGroup = document.querySelector("input[name='demo-source-trust']") ? document.querySelector("input[name='demo-source-trust']").closest(".form-group") : null;
+    if (!sourceTrustChecked) {
+        addError(null, srcTrustGroup, "Lütfen 'Danıştığınız kaynağı ne kadar güvenilir buldunuz?' sorusunu yanıtlayınız.");
+    }
+
+    // 9. Gelecekte danışma isteği (1-7)
+    const futureIntentChecked = document.querySelector("input[name='demo-source-future-intent']:checked");
+    const futIntentGroup = document.querySelector("input[name='demo-source-future-intent']") ? document.querySelector("input[name='demo-source-future-intent']").closest(".form-group") : null;
+    if (!futureIntentChecked) {
+        addError(null, futIntentGroup, "Lütfen 'Bu kaynağa farklı konularda da danışma isteği' sorusunu yanıtlayınız.");
+    }
+
+    // 10. Sohbetin inandırıcılığı (1-7)
+    const believabilityChecked = document.querySelector("input[name='demo-ai-believability']:checked");
+    const believGroup = document.querySelector("input[name='demo-ai-believability']") ? document.querySelector("input[name='demo-ai-believability']").closest(".form-group") : null;
+    if (!believabilityChecked) {
+        addError(null, believGroup, "Lütfen 'Yaptığınız sohbetin içeriğini ne kadar inandırıcı buldunuz?' sorusunu yanıtlayınız.");
+    }
+
+    // Hata varsa kullanıcıyı eksik soruya kaydır ve uyar
+    if (errors.length > 0) {
+        if (firstErrorElement) {
+            firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (typeof firstErrorElement.focus === 'function') {
+                firstErrorElement.focus();
+            }
+        }
+        alert("Lütfen aşağıdaki eksik soruyu tamamlayınız:\n\n• " + errors[0]);
         return false;
     }
 
-    sessionData.demo_age = parseInt(ageVal);
+    // Başarılıysa sessionData'ya kaydet
+    sessionData.demo_age = ageNum;
     sessionData.demo_gender = genderVal ? parseInt(genderVal) : 0;
     sessionData.demo_ses = parseInt(sesVal);
     sessionData.demo_ai_used = parseInt(aiUsedChecked.value);
     sessionData.demo_ai_preferred = parseInt(aiPreferredVal);
     sessionData.demo_ai_duration = parseInt(durationVal);
-    sessionData.demo_ai_hours = parseFloat(hoursVal);
+    sessionData.demo_ai_hours = hoursNum;
     sessionData.demo_ai_understanding = parseInt(aiUnderstandingChecked.value);
     sessionData.demo_source_trust = parseInt(sourceTrustChecked.value);
     sessionData.demo_source_future_intent = parseInt(futureIntentChecked.value);

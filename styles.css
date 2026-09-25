@@ -1657,3 +1657,16 @@ body {
         font-size: 0.75rem;
     }
 }
+
+/* Validation Error Highlight */
+.has-error {
+    border: 2px solid #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.06) !important;
+    border-radius: var(--border-radius-md) !important;
+    padding: 12px !important;
+    transition: all 0.3s ease;
+}
+.input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25) !important;
+}
