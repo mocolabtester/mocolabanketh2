@@ -905,7 +905,7 @@
                 <div class="info-box border-accent mt-4">
                     <p><i class="fa-solid fa-circle-info text-accent"></i> <strong>Katılım Teşekkürü & Ek Puan Bilgisi:</strong></p>
                     <p>Çalışmamıza katıldığınız için teşekkür ederiz! Cevaplarınız başarıyla kaydedilmiştir.</p>
-                    <p class="mt-2">Eğer Gelişim Psikolojisi 2 dersi kapsamında **ek puan alacak bir öğrenciyseniz**, aşağıdaki **"Okudum, Ek Puan Formuna İlerle"** butonuna tıklayarak bilgilerinizi giriniz.</p>
+                    <p class="mt-2">Eğer listelenen psikoloji dersleri kapsamında <strong>ek puan (1 puan) alacak bir öğrenciyseniz</strong>, aşağıdaki <strong>"Okudum, Ek Puan Formuna İlerle"</strong> butonuna tıklayarak bilgilerinizi giriniz.</p>
                     <p class="mt-1">Ders kapsamında ek puan talebiniz yoksa araştırmamız sizin için tamamlanmıştır. Doğrudan bu sayfayı/sekmeyi kapatabilirsiniz.</p>
                 </div>
 
@@ -928,8 +928,8 @@
 
                 <div class="info-box border-accent">
                     <p><i class="fa-solid fa-circle-info text-accent"></i> <strong>Ek Puan Bilgisi:</strong> Bu
-                        çalışmaya katılımınız karşılığında <strong>Gelişim Psikolojisi 2</strong> dersiniz için
-                        <strong>2 puan ek puan</strong> tanımlanacaktır.</p>
+                        çalışmaya katılımınız karşılığında seçeceğiniz dersiniz için
+                        <strong>1 puan ek puan</strong> tanımlanacaktır.</p>
                     <p><i class="fa-solid fa-user-shield text-accent"></i> <strong>Kimlik Gizliliği Güvencesi:</strong>
                     </p>
                     <p>Bir önceki adımda verdiğiniz ahlaki kararlar ve cevaplar <strong>veri tabanına anonim olarak
@@ -951,7 +951,61 @@
                         <input type="text" id="stud-id" class="form-input" placeholder="Örn: 2021102030">
                     </div>
 
-                    <input type="hidden" id="stud-course" value="Gelişim Psikolojisi 2">
+                    <div class="form-group full-width">
+                        <label class="form-label required" for="stud-course">Ek Puan İstediğiniz Ders</label>
+                        <select id="stud-course" class="form-select" required>
+                            <option value="" disabled selected>Lütfen ek puan tanımlanacak dersi seçiniz...</option>
+                            <optgroup label="Türkçe Lisans Dersleri">
+                                <option value="PSK1164380 FELSEFEYE GİRİŞ">PSK1164380 FELSEFEYE GİRİŞ</option>
+                                <option value="PSK2122930 GELİŞİM PSİKOLOJİSİ I">PSK2122930 GELİŞİM PSİKOLOJİSİ I</option>
+                                <option value="PSK2122940 BİLİŞSEL PSİKOLOJİ">PSK2122940 BİLİŞSEL PSİKOLOJİ</option>
+                                <option value="PSK2153960 DAVRANIŞ BİLİMLERİ İÇİN İSTATİSTİK I">PSK2153960 DAVRANIŞ BİLİMLERİ İÇİN İSTATİSTİK I</option>
+                                <option value="PSK2122920 PSİKOLOJİDE ARAŞTIRMA YÖNTEMLERİ">PSK2122920 PSİKOLOJİDE ARAŞTIRMA YÖNTEMLERİ</option>
+                                <option value="PSK3171770 PSİKOPATOLOJİ">PSK3171770 PSİKOPATOLOJİ</option>
+                                <option value="PSK3116791 DUYGULAR">PSK3116791 DUYGULAR</option>
+                                <option value="PSK2141330 SOSYAL PSİKOLOJİ I">PSK2141330 SOSYAL PSİKOLOJİ I</option>
+                                <option value="PSK3141350 PSİKOLOJİDE ÖLÇME VE DEĞERLENDİRME">PSK3141350 PSİKOLOJİDE ÖLÇME VE DEĞERLENDİRME</option>
+                                <option value="PSK3113590 PSİKOLOJİ TARİHİ">PSK3113590 PSİKOLOJİ TARİHİ</option>
+                                <option value="PSK3116806 STRES VE STRES YÖNETİMİ">PSK3116806 STRES VE STRES YÖNETİMİ</option>
+                                <option value="PSK4151420 TEMEL GÖRÜŞME BECERİLERİ (A)">PSK4151420 TEMEL GÖRÜŞME BECERİLERİ (A)</option>
+                                <option value="PSK4151420 TEMEL GÖRÜŞME BECERİLERİ (B)">PSK4151420 TEMEL GÖRÜŞME BECERİLERİ (B)</option>
+                                <option value="PSK4151420 TEMEL GÖRÜŞME BECERİLERİ (C)">PSK4151420 TEMEL GÖRÜŞME BECERİLERİ (C)</option>
+                                <option value="ENDÜSTRİ VE ÖRGÜT PSİKOLOJİSİNDE GÜNCEL KONULAR">ENDÜSTRİ VE ÖRGÜT PSİKOLOJİSİNDE GÜNCEL KONULAR</option>
+                                <option value="PSK4151460 BİLİŞSEL REHABİLİTASYONA GİRİŞ">PSK4151460 BİLİŞSEL REHABİLİTASYONA GİRİŞ</option>
+                                <option value="PSK3110149 EVRİMSEL PSİKOLOJİ">PSK3110149 EVRİMSEL PSİKOLOJİ</option>
+                                <option value="PSK4112108 AHLAK PSİKOLOJİSİ">PSK4112108 AHLAK PSİKOLOJİSİ</option>
+                                <option value="PSK4151360 NÖROPSİKOLOJİYE GİRİŞ">PSK4151360 NÖROPSİKOLOJİYE GİRİŞ</option>
+                                <option value="PSK4171750 BİLİŞSEL DAVRANIŞÇI TERAPİYE GİRİŞ">PSK4171750 BİLİŞSEL DAVRANIŞÇI TERAPİYE GİRİŞ</option>
+                                <option value="PSK4151610 TOPLUMSAL CİNSİYET PSİKOLOJİSİ">PSK4151610 TOPLUMSAL CİNSİYET PSİKOLOJİSİ</option>
+                            </optgroup>
+                            <optgroup label="İngilizce Lisans Dersleri (English Program Courses)">
+                                <option value="PSY1113415 INTRODUCTION TO SCIENTIFIC THINKING">PSY1113415 INTRODUCTION TO SCIENTIFIC THINKING</option>
+                                <option value="PSY1116834 INTRODUCTION TO NEUROSCIENCE">PSY1116834 INTRODUCTION TO NEUROSCIENCE</option>
+                                <option value="PSY1123370 INTRODUCTION TO PSYCHOLOGY I">PSY1123370 INTRODUCTION TO PSYCHOLOGY I</option>
+                                <option value="PSY1165160 INTRODUCTION TO PHILOSOPHY">PSY1165160 INTRODUCTION TO PHILOSOPHY</option>
+                                <option value="PSY2149370 COGNITIVE PSYCHOLOGY">PSY2149370 COGNITIVE PSYCHOLOGY</option>
+                                <option value="PSY2151260 DEVELOPMENTAL PSYCHOLOGY I">PSY2151260 DEVELOPMENTAL PSYCHOLOGY I</option>
+                                <option value="PSY2151270 RESEARCH METHODS IN PSYCHOLOGY">PSY2151270 RESEARCH METHODS IN PSYCHOLOGY</option>
+                                <option value="PSY2151280 STATISTICS FOR BEHAVIORAL SCIENCES I">PSY2151280 STATISTICS FOR BEHAVIORAL SCIENCES I</option>
+                                <option value="PSY2171780 SOCIAL PSYCHOLOGY I">PSY2171780 SOCIAL PSYCHOLOGY I</option>
+                                <option value="PSY3171810 PSYCHOPATHOLOGY">PSY3171810 PSYCHOPATHOLOGY</option>
+                                <option value="PSY3171820 PSYCHOLOGICAL ASSESSMENT">PSY3171820 PSYCHOLOGICAL ASSESSMENT</option>
+                                <option value="PSY3123570 HISTORY OF PSYCHOLOGY">PSY3123570 HISTORY OF PSYCHOLOGY</option>
+                                <option value="PSY3116836 EMOTIONS">PSY3116836 EMOTIONS</option>
+                                <option value="PSY4110615 BASIC INTERVIEW SKILLS (A)">PSY4110615 BASIC INTERVIEW SKILLS (A)</option>
+                                <option value="PSY4110615 BASIC INTERVIEW SKILLS (B)">PSY4110615 BASIC INTERVIEW SKILLS (B)</option>
+                                <option value="PSY4112809 FORENSIC PSYCHOLOGY">PSY4112809 FORENSIC PSYCHOLOGY</option>
+                                <option value="SELECTIVE TOPICS IN SOCIAL PSYCHOLOGY">SELECTIVE TOPICS IN SOCIAL PSYCHOLOGY</option>
+                                <option value="PSY4112814 INTRODUCTION TO PSYCHOANALYTIC THEORIES">PSY4112814 INTRODUCTION TO PSYCHOANALYTIC THEORIES</option>
+                                <option value="PSY4110609 EVOLUTIONARY PSYCHOLOGY">PSY4110609 EVOLUTIONARY PSYCHOLOGY</option>
+                                <option value="TRAUMA AND MEMORY">TRAUMA AND MEMORY</option>
+                                <option value="SELECTIVE TOPICS IN DEVELOPMENTAL PSYCHOLOGY">SELECTIVE TOPICS IN DEVELOPMENTAL PSYCHOLOGY</option>
+                                <option value="READING AND RESEARCH IN PSYCHOLOGY">READING AND RESEARCH IN PSYCHOLOGY</option>
+                                <option value="GROWTH AFTER TRAUMA">GROWTH AFTER TRAUMA</option>
+                                <option value="PSY4115805 STRESS AND TRAUMA">PSY4115805 STRESS AND TRAUMA</option>
+                            </optgroup>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="action-footer mt-4" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
