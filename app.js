@@ -231,6 +231,12 @@ window.addEventListener("message", (event) => {
 
 // --- UI GÜNCELLEME VE NAVİGASYON ---
 function showStep(stepId) {
+    if (stepId === "student-info" && sessionStorage.getItem("credit_submitted") === "true") {
+        alert("Ek puan kaydınız zaten başarıyla alınmıştır. Mükerrer kayıt yapılamaz.");
+        showStep("thanks");
+        return;
+    }
+
     // Aktif kartı gizle, yenisini göster
     document.querySelectorAll(".card").forEach(card => card.classList.remove("active"));
     const targetCard = document.getElementById(`view-${stepId}`);
@@ -248,6 +254,51 @@ function showStep(stepId) {
 
     // Sayfa durumunu hafızaya kaydet (iPhone/Safari koruması)
     saveSurveySession();
+
+    if (stepId === "thanks") {
+        renderThanksCreditStatus();
+    }
+}
+
+function renderThanksCreditStatus() {
+    const statusContainer = document.getElementById("thanks-credit-status");
+    if (!statusContainer) return;
+
+    const isSubmitted = sessionStorage.getItem("credit_submitted") === "true";
+    const submittedCourse = sessionStorage.getItem("credit_course") || "";
+
+    if (isSubmitted) {
+        // Öğrenci ek puan kaydını başarıyla tamamladı: Geri dönüş butonu YOK, tekrar gönderim ENGELLİ!
+        statusContainer.innerHTML = `
+            <div class="info-box border-accent mt-4" style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; text-align: left;">
+                <p style="color: #059669; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Ek Puan Talebiniz Alındı</p>
+                <p class="mt-1" style="font-size: 0.9rem; color: var(--text-secondary);">
+                    ${submittedCourse ? `<strong>${submittedCourse}</strong> dersi için ` : ""}1 ek puan kaydınız başarıyla listeye işlenmiştir. Tekrar bir işlem yapmanıza gerek yoktur.
+                </p>
+            </div>
+        `;
+    } else {
+        // Öğrenci ek puan almadan bu ekrana geçtiyse: Kurtarma butonu göster
+        statusContainer.innerHTML = `
+            <div class="info-box border-warning mt-4" style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b; text-align: left;">
+                <p style="color: #d97706; font-weight: 600;"><i class="fa-solid fa-circle-exclamation"></i> Ek Puan Talep Etmediniz</p>
+                <p class="mt-1" style="font-size: 0.9rem; color: var(--text-secondary);">
+                    Dersiniz için 1 ek puan alacak bir öğrenciyseniz ve bu adımı yanlışlıkla geçtiyseniz, aşağıdaki butona tıklayarak bilgilerinizi kaydedebilirsiniz.
+                </p>
+                <div class="mt-3 text-center">
+                    <button class="btn btn-secondary btn-sm" id="btn-return-to-credit" type="button" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-arrow-left"></i> <span>Ek Puan Formuna Geri Dön</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        const btnReturn = document.getElementById("btn-return-to-credit");
+        if (btnReturn) {
+            btnReturn.addEventListener("click", () => {
+                showStep("student-info");
+            });
+        }
+    }
 }
 
 function updateProgressBar(stepId) {
@@ -1029,6 +1080,12 @@ function submitSurveyData() {
 }
 
 function submitStudentInfo() {
+    if (sessionStorage.getItem("credit_submitted") === "true") {
+        alert("Ek puan kaydınız zaten başarıyla alınmıştır. Mükerrer kayıt yapılamaz.");
+        showStep("thanks");
+        return;
+    }
+
     const nameVal = document.getElementById("stud-name").value.trim();
     const idVal = document.getElementById("stud-id").value.trim();
     const courseVal = document.getElementById("stud-course").value.trim();
@@ -1037,6 +1094,9 @@ function submitStudentInfo() {
         alert("Lütfen ek puan alabilmek için tüm alanları doldurunuz.");
         return;
     }
+
+    sessionStorage.setItem("credit_submitted", "true");
+    sessionStorage.setItem("credit_course", courseVal);
 
     // 1. LocalStorage yedeği
     const localCredits = JSON.parse(localStorage.getItem("student_credits") || "[]");
