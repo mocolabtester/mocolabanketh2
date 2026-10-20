@@ -258,6 +258,10 @@ function showStep(stepId) {
     if (stepId === "thanks") {
         renderThanksCreditStatus();
     }
+
+    if (stepId === "student-info") {
+        updateStudentInfoNotice();
+    }
 }
 
 function renderThanksCreditStatus() {
@@ -717,7 +721,7 @@ function initAppNavigation() {
 
     btnDemoNext.addEventListener("click", () => {
         if (validateDemographics()) {
-            submitSurveyData();
+            showStep("debrief");
         }
     });
 
@@ -725,7 +729,7 @@ function initAppNavigation() {
     const btnDebriefSubmit = document.getElementById("btn-debrief-submit");
     if (btnDebriefSubmit) {
         btnDebriefSubmit.addEventListener("click", () => {
-            showStep("student-info");
+            handleDebriefDecision();
         });
     }
 
@@ -1075,8 +1079,7 @@ function submitSurveyData() {
         });
     }
 
-    // Katılımcıyı Debriefing sayfasına aktar
-    showStep("debrief");
+    // Veriler başarıyla iletildi ve yerel belleğe kaydedildi
 }
 
 function submitStudentInfo() {
@@ -1133,6 +1136,50 @@ function submitStudentInfo() {
 }
 
 // Google Sheets'e gönderilmek üzere iç içe geçmiş nesneleri düzleştirir (Flattening)
+function handleDebriefDecision() {
+    const consentRadio = document.querySelector('input[name="debrief-consent"]:checked');
+    const consentChoice = consentRadio ? consentRadio.value : "allow";
+
+    if (consentChoice === "withdraw") {
+        // 1. Katılımcı verilerinin araştırmadan çıkarılmasını istedi
+        sessionStorage.setItem("survey_withdrawn", "true");
+
+        // 2. Geçici anket oturum kayıtlarını temizle (Google Sheets'e ASLA gönderilmez)
+        try {
+            sessionStorage.removeItem("active_survey_step");
+            sessionStorage.removeItem("active_survey_data");
+            localStorage.removeItem("active_survey_backup");
+        } catch (e) {
+            console.warn(e);
+        }
+
+        alert(`Talebiniz doğrultusunda anket cevaplarınız veri tabanına kaydedilmemiş ve araştırmadan tamamen çıkarılmıştır.
+
+Araştırmaya ayırdığınız zaman ve emek için 1 ek puan hakkınız saklıdır. Ek puan almak istiyorsanız bir sonraki ekranda bilgilerinizi girebilirsiniz.`);
+        showStep("student-info");
+    } else {
+        // 1. Katılımcı verilerinin kullanılmasına izin verdi
+        sessionStorage.setItem("survey_withdrawn", "false");
+        sessionData.debrief_consent = "allow";
+        
+        // 2. Verileri Google Sheets'e ve yerel belleğe kaydet
+        submitSurveyData();
+
+        // 3. Ek puan sayfasına aktar
+        showStep("student-info");
+    }
+}
+
+function updateStudentInfoNotice() {
+    const subtext = document.getElementById("student-info-subtext");
+    if (!subtext) return;
+    if (sessionStorage.getItem("survey_withdrawn") === "true") {
+        subtext.innerHTML = "Talebiniz doğrultusunda anket cevaplarınız <strong>araştırmadan tamamen çıkarılmış ve kaydedilmemiştir</strong>. Ayırdığınız zaman için 1 ek puan hakkınızı aşağıdaki formu doldurarak alabilirsiniz.";
+    } else {
+        subtext.innerHTML = "Araştırma ve anket cevaplarınız bir önceki adımda verdiğiniz onay doğrultusunda <strong>güvenli ve anonim olarak sisteme kaydedilmiştir</strong>.";
+    }
+}
+
 function flattenDataForSheets(obj) {
     const flat = {};
     

@@ -902,16 +902,29 @@
                     <p class="mt-2">Bu manipülasyon, insanların karşısındakini "insan bir muhatap" olarak algıladıklarında, aldıkları destekleyici veya çürütücü argümanlar karşısında ahlaki kararlarını nasıl değiştirdiklerini ve bilişsel eminliklerinin bu süreci nasıl yönlendirdiğini anlamamız açısından gerekliydi.</p>
                 </div>
 
-                <div class="info-box border-accent mt-4">
-                    <p><i class="fa-solid fa-circle-info text-accent"></i> <strong>Katılım Teşekkürü & Ek Puan Bilgisi:</strong></p>
-                    <p>Çalışmamıza katıldığınız için teşekkür ederiz! Cevaplarınız başarıyla kaydedilmiştir.</p>
-                    <p class="mt-2">Eğer listelenen psikoloji dersleri kapsamında <strong>ek puan (1 puan) alacak bir öğrenciyseniz</strong>, aşağıdaki <strong>"Okudum, Ek Puan Formuna İlerle"</strong> butonuna tıklayarak bilgilerinizi giriniz.</p>
-                    <p class="mt-1">Ders kapsamında ek puan talebiniz yoksa araştırmamız sizin için tamamlanmıştır. Doğrudan bu sayfayı/sekmeyi kapatabilirsiniz.</p>
+                                <div class="info-box border-accent mt-4" style="background: rgba(30, 41, 59, 0.04); border-left: 4px solid var(--accent);">
+                    <p><i class="fa-solid fa-user-shield text-accent"></i> <strong>Veri Kullanım İzni ve Katılımcı Onamı:</strong></p>
+                    <p class="mt-1">Yukarıdaki açıklamayı okudunuz ve araştırmanın gerçek amacını öğrendiniz. Akademik etik kurallar gereği, verilerinizin bu araştırmada kullanılıp kullanılmayacağına karar verme hakkına sahipsiniz. Lütfen aşağıdaki seçeneklerden birini işaretleyiniz:</p>
+                    
+                    <div class="debrief-consent-group mt-3" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <label class="radio-label" style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 0.85rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-card, #ffffff);">
+                            <input type="radio" name="debrief-consent" value="allow" checked style="margin-top: 0.25rem;">
+                            <span><strong>Verilerimin araştırmada kullanılmasına izin veriyorum.</strong><br><small style="color: var(--text-secondary);">Cevaplarımın anonim olarak bilimsel analizlere dahil edilmesini onaylıyorum.</small></span>
+                        </label>
+                        <label class="radio-label" style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 0.85rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-card, #ffffff);">
+                            <input type="radio" name="debrief-consent" value="withdraw" style="margin-top: 0.25rem;">
+                            <span><strong>Verilerimin araştırmadan çıkarılmasını talep ediyorum.</strong><br><small style="color: var(--text-secondary);">Cevaplarım hiçbir veri tabanına kaydedilmeyecek ve araştırmadan tamamen silinecektir.</small></span>
+                        </label>
+                    </div>
+
+                    <div class="mt-3" style="font-size: 0.9rem; color: var(--text-secondary); border-top: 1px dashed var(--border-color); padding-top: 0.6rem;">
+                        <i class="fa-solid fa-circle-info text-accent"></i> <strong>Ek Puan Notu:</strong> Hangi seçeneği seçerseniz seçin, araştırmaya ayırdığınız zaman ve emeğiniz karşılığında dersiniz için tanımlanan <strong>1 ek puan hakkınız saklıdır</strong>.
+                    </div>
                 </div>
 
-                <div class="action-footer">
+                <div class="action-footer mt-4">
                     <button class="btn btn-primary" id="btn-debrief-submit">
-                        <span>Okudum, Ek Puan Formuna İlerle</span> <i class="fa-solid fa-chevron-right"></i>
+                        <span>Seçimimi Onayla ve İlerle</span> <i class="fa-solid fa-chevron-right"></i>
                     </button>
                 </div>
             </section>
@@ -922,7 +935,7 @@
 
                 <div class="info-box border-warning mb-4" style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b;">
                     <p style="color: #f59e0b;"><i class="fa-solid fa-circle-exclamation"></i> <strong>Ek Puan Talebi Olmayan Katılımcılar İçin Bilgilendirme:</strong></p>
-                    <p class="mt-1">Araştırma ve anket cevaplarınız bir önceki adımda zaten <strong>güvenli ve anonim olarak sisteme kaydedilmiştir</strong>.</p>
+                    <p class="mt-1"><span id="student-info-subtext">Araştırma ve anket cevaplarınız bir önceki adımda verdiğiniz onay doğrultusunda <strong>güvenli ve anonim olarak sisteme kaydedilmiştir</strong>.</span></p>
                     <p class="mt-1">Eğer herhangi bir ders kapsamında ek puan talebiniz yoksa veya araştırmamıza gönüllü olarak katıldıysanız bu formu doldurmanıza gerek yoktur. Sayfayı doğrudan kapatabilir veya aşağıdaki <strong>"Ek Puan Talebim Yok"</strong> butonuna tıklayarak işlemi tamamlayabilirsiniz.</p>
                 </div>
 
@@ -932,8 +945,8 @@
                         <strong>1 puan ek puan</strong> tanımlanacaktır.</p>
                     <p><i class="fa-solid fa-user-shield text-accent"></i> <strong>Kimlik Gizliliği Güvencesi:</strong>
                     </p>
-                    <p>Bir önceki adımda verdiğiniz ahlaki kararlar ve cevaplar <strong>veri tabanına anonim olarak
-                            kaydedilmiştir</strong>. Akademik etik kuralları gereği, aşağıdaki forma gireceğiniz kimlik
+                    <p>Bir önceki adımda verdiğiniz ahlaki kararlar ve cevaplar <strong>onayınız doğrultusunda veri tabanına anonim olarak
+                            kaydedilmiştir</strong> (verilerinizin çıkarılmasını talep ettiyseniz hiçbir cevap kaydedilmemiştir). Akademik etik kuralları gereği, aşağıdaki forma gireceğiniz kimlik
                         bilgileriniz (ad, soyad, öğrenci numarası) bir önceki verilerinizle <strong>asla
                             ilişkilendirilmeyecek ve tamamen farklı bir listeye kaydedilecektir</strong>.</p>
                     <p>Bu sayede araştırmacı sadece dersteki ek puan hakkı kazanan öğrenci listesini görebilecek, fakat
