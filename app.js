@@ -116,8 +116,6 @@ let sessionData = {
     demo_ses: 0,
     demo_ai_used: 0,
     demo_ai_preferred: 0,
-    demo_religiosity: 4,
-    demo_politics: 4,
     demo_trust_human: 50,
     demo_trust_ai: 50,
     demo_ai_duration: 0,
@@ -664,60 +662,8 @@ function initAppNavigation() {
         }
     });
 
-    setupSliderListener("demo-religiosity", "val-demo-rel", (val) => {
-        const optout = document.getElementById("demo-rel-optout");
-        if (!optout || !optout.checked) {
-            sessionData.demo_religiosity = parseInt(val);
-        }
-    });
-
-    setupSliderListener("demo-politics", "val-demo-pol", (val) => {
-        const optout = document.getElementById("demo-pol-optout");
-        if (!optout || !optout.checked) {
-            sessionData.demo_politics = parseInt(val);
-        }
-    });
-
     setupSliderListener("demo-trust-human", "val-demo-trust-human", (val) => sessionData.demo_trust_human = parseInt(val));
     setupSliderListener("demo-trust-ai", "val-demo-trust-ai", (val) => sessionData.demo_trust_ai = parseInt(val));
-
-    const relOptout = document.getElementById("demo-rel-optout");
-    const relSlider = document.getElementById("demo-religiosity");
-    const valRel = document.getElementById("val-demo-rel");
-    if (relOptout && relSlider && valRel) {
-        relOptout.addEventListener("change", () => {
-            if (relOptout.checked) {
-                relSlider.disabled = true;
-                relSlider.closest(".slider-container").style.opacity = "0.4";
-                valRel.innerText = "-";
-                sessionData.demo_religiosity = 0;
-            } else {
-                relSlider.disabled = false;
-                relSlider.closest(".slider-container").style.opacity = "1";
-                valRel.innerText = relSlider.value;
-                sessionData.demo_religiosity = parseInt(relSlider.value);
-            }
-        });
-    }
-
-    const polOptout = document.getElementById("demo-pol-optout");
-    const polSlider = document.getElementById("demo-politics");
-    const valPol = document.getElementById("val-demo-pol");
-    if (polOptout && polSlider && valPol) {
-        polOptout.addEventListener("change", () => {
-            if (polOptout.checked) {
-                polSlider.disabled = true;
-                polSlider.closest(".slider-container").style.opacity = "0.4";
-                valPol.innerText = "-";
-                sessionData.demo_politics = 0;
-            } else {
-                polSlider.disabled = false;
-                polSlider.closest(".slider-container").style.opacity = "1";
-                valPol.innerText = polSlider.value;
-                sessionData.demo_politics = parseInt(polSlider.value);
-            }
-        });
-    }
 
     btnDemoNext.addEventListener("click", () => {
         if (validateDemographics()) {
